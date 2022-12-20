@@ -1,0 +1,511 @@
+<!DOCTYPE html><html class="hide-aside" lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>常用算法归类 | 柠檬大师的空间站</title><meta name="keywords" content="数据结构,算法"><meta name="author" content="柠檬大师"><meta name="copyright" content="柠檬大师"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="二分查找（非递归） 分治算法 动态规划 KMP算法 贪心算法 回溯算法  以下只给出思路与关键方法，算法的源代码放在了git中，需要的自取 leidl97&#x2F;algorithm-src 二分查找（非递归）非递归的话肯定使用while了 难点 注意边界值条件，只有当左边的值大于右边才跳出循环 当目标值小于mid时，应该让right &#x3D; mid + 1，需要加1， 同样的，相反情况也需要 -1 。 方">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常用算法归类">
+<meta property="og:url" content="https://leidl.top/post/f79807ee.html">
+<meta property="og:site_name" content="柠檬大师的空间站">
+<meta property="og:description" content="二分查找（非递归） 分治算法 动态规划 KMP算法 贪心算法 回溯算法  以下只给出思路与关键方法，算法的源代码放在了git中，需要的自取 leidl97&#x2F;algorithm-src 二分查找（非递归）非递归的话肯定使用while了 难点 注意边界值条件，只有当左边的值大于右边才跳出循环 当目标值小于mid时，应该让right &#x3D; mid + 1，需要加1， 同样的，相反情况也需要 -1 。 方">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://image.leidl.top/img/20210808191151.png">
+<meta property="article:published_time" content="2021-08-07T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-04-15T13:45:23.776Z">
+<meta property="article:author" content="柠檬大师">
+<meta property="article:tag" content="数据结构">
+<meta property="article:tag" content="算法">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image.leidl.top/img/20210808191151.png"><link rel="shortcut icon" href="https://leidl.top/img/favicon.ico"><link rel="canonical" href="https://leidl.top/post/f79807ee"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="manifest" href="/manifest.json"/><meta name="msapplication-TileColor" content="#ffffff"/><link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png"/><link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png"/><link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png"/><link rel="mask-icon" href="/img/safari-pinned-tab.svg" color="#5bbad5"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":30,"position":"top","messagePrev":"距离上次更新已经过了","messageNext":"天，文中部分内容可能已经过时，如有疑问，请在下方留言"},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":600},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":500,"languages":{"author":"作者: 柠檬大师","link":"链接: ","source":"来源: 柠檬大师的空间站","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"top-center"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '常用算法归类',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-04-15 21:45:23'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/bb.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Zfour/Butterfly-card-history/baiduhistory/css/main.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-butterfly-footer-beautify@1.0.0/lib/runtime.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-butterfly-swiper/lib/swiper.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/l-lin/font-awesome-animation/dist/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.min.css" media="defer" onload="this.media='all'"><script async src="https://cdn.jsdelivr.net/npm/hexo-butterfly-tag-plugins-plus@latest/lib/carousel-touch.min.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><a href="javascript:void(0);" onclick="preloader.endLoading();" title="点击跳过动画"></a><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="iron-container iron-circle"><div class="iron-box1 iron-circle iron-center"></div><div class="iron-box2 iron-circle iron-center"></div><div class="iron-box3 iron-circle iron-center"></div><div class="iron-box4 iron-circle iron-center"></div><div class="iron-box5 iron-circle iron-center"></div><div class="iron-box6 iron-circle"><div class="iron-coil" style="--i: 0"></div><div class="iron-coil" style="--i: 1"></div><div class="iron-coil" style="--i: 2"></div><div class="iron-coil" style="--i: 3"></div><div class="iron-coil" style="--i: 4"></div><div class="iron-coil" style="--i: 5"></div><div class="iron-coil" style="--i: 6"></div><div class="iron-coil" style="--i: 7"></div></div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://leidl.top/img/favicon.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">86</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">25</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-shouye_huaban"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-shijianzhou"></use></svg><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-biaoqian-copy-copy"></use></svg><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-ziyuan"></use></svg><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/talk/"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-liuyanban"></use></svg><span> 闲言碎语</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-lianjie"></use></svg><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/board/"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-xiaoxi"></use></svg><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-bixin1"></use></svg><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://image.leidl.top/img/20210808191151.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">柠檬大师的空间站</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-shouye_huaban"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-shijianzhou"></use></svg><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-biaoqian-copy-copy"></use></svg><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-ziyuan"></use></svg><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/talk/"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-liuyanban"></use></svg><span> 闲言碎语</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-lianjie"></use></svg><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/board/"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-xiaoxi"></use></svg><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-bixin1"></use></svg><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">常用算法归类</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-08-07T16:00:00.000Z" title="发表于 2021-08-08 00:00:00">2021-08-08</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-04-15T13:45:23.776Z" title="更新于 2022-04-15 21:45:23">2022-04-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">4.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>17分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="常用算法归类"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><ol>
+<li>二分查找（非递归）</li>
+<li>分治算法</li>
+<li>动态规划</li>
+<li>KMP算法</li>
+<li>贪心算法</li>
+<li>回溯算法</li>
+</ol>
+<p>以下只给出思路与关键方法，算法的源代码放在了git中，需要的自取</p>
+<p><a target="_blank" rel="noopener" href="https://gitee.com/leidl97/algorithm-src.git">leidl97/algorithm-src</a></p>
+<h2 id="二分查找（非递归）"><a href="#二分查找（非递归）" class="headerlink" title="二分查找（非递归）"></a>二分查找（非递归）</h2><p>非递归的话肯定使用while了</p>
+<p><strong>难点</strong></p>
+<p>注意边界值条件，只有当左边的值大于右边才跳出循环</p>
+<p>当目标值小于mid时，应该让right = mid + 1，需要加1，</p>
+<p>同样的，相反情况也需要 -1 。</p>
+<p><strong>方法实现</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//非递归实现</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">search3</span><span class="params">(<span class="keyword">int</span>[] a, <span class="keyword">int</span> act)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> left = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> right = a.length-<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (left &lt;= right) &#123;</span><br><span class="line">        <span class="keyword">int</span> mid = (left + right) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span> (a[mid] == act) &#123;</span><br><span class="line">            <span class="comment">//找到该值</span></span><br><span class="line">            System.out.println(<span class="string">&quot;找到该值&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (act &lt; a[mid]) &#123;</span><br><span class="line">            right = mid - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        left = mid + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(<span class="string">&quot;没有找到该值&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="分治算法"><a href="#分治算法" class="headerlink" title="分治算法"></a>分治算法</h2><p>分而治之，将一个大问题分解成小问题去解决，再将子问题的解合并就是原问题的解。</p>
+<p>经典的应用有：归并排序，快速排序，傅里叶变换（快速傅里叶变换），汉诺塔等</p>
+<p>以汉诺塔（hannoiTower）为例</p>
+<p><strong>解题思路</strong></p>
+<p>如果只有1个盘，直接从A移到C</p>
+<p>如果两个盘</p>
+<p>①那么将最上面部分看作一个整体，先移动到辅助柱子B（递归）</p>
+<p>②在将最后一个盘移动到C</p>
+<p>③最后将B上的盘移动到C，此时A作为辅助柱子（递归）</p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic2.zhimg.com/v2-9ed9eff7a4b0442808f4544e31934a59_b.png" alt="img"></p>
+<p><strong>代码实现</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 汉诺塔移动</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> n 几个盘子</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> a 源柱</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> b 辅助柱</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> c 目标柱</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">char</span> a, <span class="keyword">char</span> b, <span class="keyword">char</span> c)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">1</span>) &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;第1个盘从&quot;</span>+a+<span class="string">&quot;移到&quot;</span>+c);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (n &gt;= <span class="number">2</span>) &#123;</span><br><span class="line">        merge(n-<span class="number">1</span>,a,c,b);</span><br><span class="line">        System.out.println(<span class="string">&quot;第&quot;</span>+n+<span class="string">&quot;个盘从&quot;</span>+a+<span class="string">&quot;移到&quot;</span>+c);</span><br><span class="line">        merge(n-<span class="number">1</span>,b,a,c);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a><strong>动态规划</strong></h2><p>比如经典的01背包问题</p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic3.zhimg.com/v2-41f27692ac937e0c9884ef8d39d9cf46_b.png" alt="img"></p>
+<p>（Dynamic Programing）可以看b站的一个视频，讲的很清楚</p>
+<p>【动态规划】背包问题_哔哩哔哩_bilibili<a href="http://www.bilibili.com![图标](https://pic3.zhimg.com/v2-d68245a9d65efe6d38ffb7efdf8c18fe_180x120.jpg)">www.bilibili.com![图标](https://pic3.zhimg.com/v2-d68245a9d65efe6d38ffb7efdf8c18fe_180x120.jpg)</a></p>
+<p><strong>介绍</strong></p>
+<p>就是分步缓存，减少重复计算的过程，增加运行效率，<strong>找到最优解</strong></p>
+<p>继续回到背包问题，又分为01背包和完全背包，01背包表示放入的东西不能够重复，完全可以放入多件</p>
+<p>涉及到两个维度的dp问题，直接考虑构建二维数组解决（大小+1，第0行0列值都是不计入）</p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic4.zhimg.com/v2-b07f98894d2fc414fa5ba8f49ea6bdc7_b.png" alt="img"></p>
+<p>根据重量及价格构建一个5 x 4的表格</p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic1.zhimg.com/v2-e84cd76c1a29917d44b8ef0bc3e52f78_b.png" alt="img"></p>
+<p><strong>思路</strong></p>
+<p>1、第一行列均置为0</p>
+<p>当背包容量为0的时候不能让任何有价值的东西，当这个价值为0的时候，装多少重量价值都为0</p>
+<p><strong>都是0的话，为什么需要创建有0的数组，有什么意义吗？</strong></p>
+<p>为了后面的计算时候使用</p>
+<p>2、for循环遍历，从第一行，第一列开始，逐渐填充该数组</p>
+<p>二维数组的每个格子都有两种选择，一种是装入物品，另一种则不装入</p>
+<p>①如果装不下，只能选择不填入物品，思路</p>
+<p>1、第一行列均置为0，因为当背包容量为0的时候不能让任何有价值的东西，当这个价值为0的时候，装多少重量都为0</p>
+<p>都是0的话，为什么需要创建有0的数组，有什么意义吗？</p>
+<p>为了后面的计算时候使用</p>
+<p>2、for循环遍历，从第一行，第一列开始，逐渐填充该数组</p>
+<p>二维数组的每个格子都有两种选择，或者填入物品，或者不填入物品</p>
+<p>首先进行判断如果装不下，此时只能选择不填入物品</p>
+<p>①当我们选择填入该物品的使用，那么此时这个格子的价值为当前商品的价值+去除这个重量后的价值【1】</p>
+<p>解释【1】：先将背包总容量-当前物品的重量获得一个值。然后取前一个物品此重量下的最大价值</p>
+<p>②如果不选择该物品，此时物品的价值和前一个物品价值相同</p>
+<p>最后取他们两个中较大的那个</p>
+<p><strong>代码思路</strong></p>
+<p>定义重量数组w[]，价格数组v[]，二维记录数组result[] [] 行表示重量，列表示价格</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//价值</span><br><span class="line">int[] v = &#123;1500,3000,2000&#125;;</span><br><span class="line">//重量</span><br><span class="line">int[] w = &#123;1,4,3&#125;;</span><br><span class="line">//结果数组</span><br><span class="line">int[][] result = new int[v.length + 1][4 + 1];</span><br></pre></td></tr></table></figure>
+
+<p>①result[0] [j] = 0， result[i] [0] = 0 表示第一行第一列为0</p>
+<p>②不可以选择（重量超出）：result[i] [j] = result[i-1] [j]（上一行的值）</p>
+<p>③可以选择：当前商品价值 + 背包容量除去当前物品重量的最大价值。</p>
+<p>result[i][j] = Math.<em>max</em>(result[i-1][j], v[i-1] + result[i-1][j - w[i-1]]);</p>
+<p><strong>最大价值如何计算？</strong></p>
+<p>比如此例的最后一个格，值应为2000+1500=3500</p>
+<p>max(result[3-1] [4] , v[2] + result[3-1] [4 - w[3-1]])</p>
+<p>result[3-1] [4] = 同列上行的值也就是1500</p>
+<p>result[3-1] [4 - w[3-1]] =  result[2] [4 - 3] = </p>
+<p>上行重量为4-3也就是result[2] [1]处的最大价值1500 + 当前物品的价值v[2]2000 = 3500</p>
+<p><strong>关键代码</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; result.length; i++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; result[<span class="number">0</span>].length; j++) &#123;</span><br><span class="line">        <span class="comment">//判断重量</span></span><br><span class="line">        <span class="keyword">if</span> (w[i-<span class="number">1</span>] &gt; j) &#123;</span><br><span class="line">            <span class="comment">//大于给定重量，那么只能不选，采用上方的</span></span><br><span class="line">            result[i][j] = result[i-<span class="number">1</span>][j];</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">//在不选和选取较大值</span></span><br><span class="line">            result[i][j] = Math.max(result[i-<span class="number">1</span>][j], v[i-<span class="number">1</span>] + result[i-<span class="number">1</span>][j - w[i-<span class="number">1</span>]]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在只是可以获得最大值，但是不知道具体方案，所以需要进行<strong>回溯</strong></p>
+<p>从二维数组的最后一个数字开始遍历，与上一行的值进行对比，如果相等说明该物品没有加入背包(行–)，</p>
+<p>如果不相等说明该物品加入背包，此时行–，</p>
+<p>判断上个物品有没有，重量得从总重量减去当前物品的重量，所以列 = 列 - 当前物品的重量</p>
+<p>方法实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i = result.length-<span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> j = result[<span class="number">0</span>].length-<span class="number">1</span>;</span><br><span class="line"><span class="keyword">while</span> (i &gt; <span class="number">0</span> &amp;&amp; j &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (result[i][j] != result[i-<span class="number">1</span>][j]) &#123;</span><br><span class="line">        <span class="comment">//不等于上面的，那么该物品装入背包</span></span><br><span class="line">        System.out.println(i+<span class="string">&quot;号物品装入背包&quot;</span>);</span><br><span class="line">        j -= w[i-<span class="number">1</span>];</span><br><span class="line">        i--;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        i--;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>结果如下</p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic2.zhimg.com/v2-cc9dad3827e7fd8382ad5a1a86447cdd_b.png" alt="img"></p>
+<h2 id="KMP算法"><a href="#KMP算法" class="headerlink" title="KMP算法"></a>KMP算法</h2><p><strong>名字的由来</strong></p>
+<p>由三个人研究出的字符串查找算法分别是Knuth-Morris-Pratt，简称为KMP算法</p>
+<p><strong>干什么的</strong></p>
+<p>匹配字符串用的，效率相较于传统的暴力破解效率很高</p>
+<p>暴力破解：指一位一位的进行对比，不匹配向后移一位，直到匹配成功，或者匹配失败</p>
+<p>总之<strong>KMP算法不死板,不像暴力破解总是不匹配向后移动一位</strong>，<strong>然后一位一位比</strong>。</p>
+<p>而是利用自身的算法来实现移动多位，来减少匹配次数，提高运行效率</p>
+<p><strong>重点</strong></p>
+<p>找前缀和后缀的共同部分的最大长度</p>
+<p><strong>什么是前缀，什么是后缀</strong></p>
+<p>前缀就是含头不含尾，后缀就是含尾不含头</p>
+<p>以APPLE为例</p>
+<p>前缀分别为：A | AP | APP | APPL</p>
+<p>后缀分别为：E | LE | PLE | PPLE</p>
+<p>需要找出模式串的部分匹配值，存入next表中</p>
+<p>什么是部分匹配值</p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic1.zhimg.com/v2-bd5e434cdd23bef6bcc75aac27095530_b.png" alt="img"></p>
+<p>一个串的前缀后缀相等的最大长度就是部分匹配值</p>
+<p>如图所示</p>
+<p>A没有前后缀就是 0 </p>
+<p>AB前缀为A，后缀为B，没有相同部分为0</p>
+<p>ABC前缀为A,AB后缀为 C,BC，没有相同部分为0</p>
+<p>同理0的就不举例了</p>
+<p>ABCDA前缀 A, AB,ABC,ABCD,后缀A,DA,CDA,BCDA,有公共的A，且长度为1，所以值为1</p>
+<p>移动位数 = 已匹配的字符数（当前目标串下标） - next表的匹配值（不匹配的表中下标对应的值） </p>
+<p><strong>难点</strong></p>
+<p><strong>1、如何创建部分匹配表，容易理解，怎么去实现写出来</strong></p>
+<p>数组第一个为0，如果第二个数与第一个字符相等，则匹配值+1，并且next[第二个数的下标] = 匹配值。此时 AAA 得到的数组为【0，1，2】</p>
+<p><strong>如果不相等该怎么办</strong></p>
+<p>第一想法是让匹配值归0，重新遍历。</p>
+<p>但KMP算法精髓在于 匹配值 = next[当前匹配值下标 - 1] 而不是直接为0</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (j &gt; <span class="number">0</span> &amp;&amp; str.charAt(i) != str.charAt(j)) &#123;</span><br><span class="line"><span class="comment">//     j = result[j - 1];</span></span><br><span class="line">       j = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>举例“AACDAAA” </p>
+<p>如果是j=0的方式，得到的结果为[0, 1, 0, 0, 1, 2, 1]，这个值是错的</p>
+<p>如果是j = result[j - 1]的方式，得到的结果为[0, 1, 0, 0, 1, 2, 2]</p>
+<p><strong>2、如何将目标串与模式串匹配</strong></p>
+<p><strong>过程思路</strong></p>
+<p>假设目标串为 “BBC ABCDAB ABCDABCDABDE”，模式串为“ABCDABD”</p>
+<p>该模式串的匹配表为next = [0, 0, 0, 0, 1, 2, 0]</p>
+<p>如果模式串指针位为0，那么当目标串第一位始终不匹配的时候，目标串的指针始终向后移动1位</p>
+<p>第一次开始匹配的位置如下：</p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic2.zhimg.com/v2-bd6e0c4b1990fe258f1dd48b167930e5_b.png" alt="img"></p>
+<p>D与空格不符，那么模式串的指针由空格位 - next[模式串下标-1]</p>
+<p>也就是next[6-1] = 移动2位，位置如下</p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic2.zhimg.com/v2-7a0f36c136755dfd847df4a678eb4f25_b.png" alt="img"></p>
+<p>C与空格不匹配，向后移动next[2-1] = 0位，这里程序做了处理，如果移动为0位，那么直接向后挪一位进行比较，直到下一次匹配到的位置</p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic1.zhimg.com/v2-dedfec3284fd2d7ee4f0360948f1bc70_b.png" alt="img"></p>
+<p>发现D!=C，移动next[6-1] = 2位，此时逐个比较，发现完全匹配，返回第一次位置的下标</p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic2.zhimg.com/v2-7b2a101e5ff0745fc9a9a787d36089c5_b.png" alt="img"></p>
+<p><strong>关键代码</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">cal</span><span class="params">(String str1, String str2)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//创建目标串指针</span></span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">//创建模式串指针</span></span><br><span class="line">        <span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">//获得匹配表</span></span><br><span class="line">        <span class="keyword">int</span>[] next = next(str2);</span><br><span class="line">        <span class="keyword">while</span> (i &lt; str1.length()) &#123;</span><br><span class="line">            <span class="keyword">if</span> (j == str2.length()) &#123;</span><br><span class="line"><span class="comment">//                return i - str2.length();</span></span><br><span class="line">                <span class="comment">//换为下面的更有效率</span></span><br><span class="line">                <span class="keyword">return</span> i - j;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (str1.charAt(i) == str2.charAt(j)) &#123;</span><br><span class="line">                i++;</span><br><span class="line">                j++;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (j == <span class="number">0</span>)&#123;</span><br><span class="line">                <span class="comment">//如果没有匹配成功，那么直接将i向后移动</span></span><br><span class="line">                i++;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">//否则表示匹配过程中失败，将i退回到相应的位置</span></span><br><span class="line">                <span class="comment">//利用先前的公式</span></span><br><span class="line">                i = i - next[j-<span class="number">1</span>];</span><br><span class="line">                j = <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//生成next数组</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] next(String str) &#123;</span><br><span class="line">        <span class="keyword">int</span>[] result = <span class="keyword">new</span> <span class="keyword">int</span>[str.length()];</span><br><span class="line">        result[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>, j = <span class="number">0</span>; i &lt; str.length(); i++) &#123;</span><br><span class="line">            <span class="keyword">while</span> (j &gt; <span class="number">0</span> &amp;&amp; str.charAt(i) != str.charAt(j)) &#123;</span><br><span class="line">                j = result[j - <span class="number">1</span>];</span><br><span class="line">                j = <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (str.charAt(i) == str.charAt(j)) &#123;</span><br><span class="line">                j++;</span><br><span class="line">            &#125;</span><br><span class="line">            result[i] = j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="贪心算法"><a href="#贪心算法" class="headerlink" title="贪心算法"></a>贪心算法</h2><p><strong>什么是贪心算法</strong></p>
+<p>对问题求解时，每一步都选择用最好或最优的方式，从而使结果达到最好的一种算法</p>
+<p>但得到的结果不一定是最优解，是相对接近最优解的结果。<strong>求最合适的解，但不一定是最优解</strong></p>
+<p><strong>举个场景说明</strong></p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic2.zhimg.com/v2-f4868ac40a9ab54845153990fcf0f16d_b.png" alt="img"></p>
+<p>如图所示，有5个广播台，得出一种方案使得，选择<strong>最少</strong>的广播台来覆盖所有的地区</p>
+<p><strong>难点</strong></p>
+<p><strong>1、怎么遍历才能获得覆盖地区最多的广播台</strong></p>
+<p>每次都找覆盖最大的一个广播台，找到之后从总集合重去除，在按这种方式继续，直到总广播台被找完，这也是贪心的思想，总是去找相对大或者相对好的。为什么是相对？比如此例中，有3个广播台都是覆盖3个城市，那么选到的不一定是最优的，但总比覆盖2个城市的优先级要高</p>
+<p><strong>2、什么情况下需要覆盖最大广播台</strong></p>
+<p>当这个广播台还有未覆盖地区的时候（size&gt;0）并且 （ 当定义的max没有初始值的时候  或者  当前遍历的广播台所覆盖的地区数量大于之前的广播台数量 ）</p>
+<p>此时当前广播台为最优选择，这也是贪心算法的思想</p>
+<p><strong>关键代码</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">while</span> (allArea.size()&gt;<span class="number">0</span>) &#123;</span><br><span class="line">            String max = <span class="keyword">null</span>;</span><br><span class="line">            <span class="keyword">for</span> (Map.Entry&lt;String,String&gt; entry : radio.entrySet()) &#123;</span><br><span class="line">                String k = entry.getKey();</span><br><span class="line">                String v = entry.getValue();</span><br><span class="line">                String[] ss = v.split(<span class="string">&quot;，&quot;</span>);</span><br><span class="line">                <span class="keyword">for</span> (String str : ss) &#123;</span><br><span class="line">                    temp.add(str);</span><br><span class="line">                &#125;</span><br><span class="line">                temp.retainAll(allArea);</span><br><span class="line">                <span class="keyword">if</span> (temp.size() &gt; <span class="number">0</span> &amp;&amp; (max == <span class="keyword">null</span> || temp.size() &gt; radio.get(max).split(<span class="string">&quot;，&quot;</span>).length)) &#123;</span><br><span class="line">                    max = k;</span><br><span class="line">                &#125;</span><br><span class="line">                temp.clear();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//将方案添加到结果集中</span></span><br><span class="line">            result.add(max);</span><br><span class="line">            <span class="keyword">for</span> (String str : radio.get(max).split(<span class="string">&quot;，&quot;</span>)) &#123;</span><br><span class="line">                allArea.remove(str);</span><br><span class="line">            &#125;</span><br><span class="line"><span class="comment">//            radio.remove(max);</span></span><br><span class="line"></span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="回溯算法"><a href="#回溯算法" class="headerlink" title="回溯算法"></a>回溯算法</h2><p>场景举例</p>
+<p>马踏棋盘是一个经典的回溯问题</p>
+<p>小游戏地址：<a target="_blank" rel="noopener" href="https://u.ali213.net/games/horsesun/index.html?game_code=403">马踏飞棋</a></p>
+<p><strong>问题描述</strong></p>
+<p>如果给定一个m x n的棋盘，在给定一个马儿棋子的初始位置，按照马走日的规则，如何可以在每个方格只进入一次的情况下，走完整个棋盘。</p>
+<p>当然，存在棋盘或者有些起始点不能使马儿走完整个棋盘的情况。</p>
+<p><strong>问题解析</strong></p>
+<p>马儿在任意一个点，总是会有可走的选择，如果可以走的话，选取一个点走，走不通的话就返回上一步，重新考虑下一个点进行尝试</p>
+<p>如何获取当前点的下一个可选点？</p>
+<p>根据马走日原则，如果满足原始点{1,2}的距离，并且返回当前可使用的点</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//i，j表示马的位置</span></span><br><span class="line"><span class="function">List&lt;Luozi&gt; <span class="title">next</span><span class="params">(<span class="keyword">int</span>[][] act, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> size = act.length;</span><br><span class="line">    List&lt;Luozi&gt; ls = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    <span class="comment">//四象限</span></span><br><span class="line">    <span class="keyword">if</span> (i+<span class="number">1</span> &lt; size &amp;&amp; j+<span class="number">2</span> &lt; size &amp;&amp; act[i+<span class="number">1</span>][j+<span class="number">2</span>] ==<span class="number">0</span>) &#123;</span><br><span class="line">        ls.add(<span class="keyword">new</span> Luozi(i+<span class="number">1</span>,j+<span class="number">2</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (i+<span class="number">2</span> &lt; size &amp;&amp; j+<span class="number">1</span> &lt; size &amp;&amp; act[i+<span class="number">2</span>][j+<span class="number">1</span>] ==<span class="number">0</span>) &#123;</span><br><span class="line">        ls.add(<span class="keyword">new</span> Luozi(i+<span class="number">2</span>,j+<span class="number">1</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//三象限</span></span><br><span class="line">    <span class="keyword">if</span> (i+<span class="number">1</span> &lt; size &amp;&amp; j-<span class="number">2</span> &gt;= <span class="number">0</span> &amp;&amp; act[i+<span class="number">1</span>][j-<span class="number">2</span>] ==<span class="number">0</span>) &#123;</span><br><span class="line">        ls.add(<span class="keyword">new</span> Luozi(i+<span class="number">1</span>,j-<span class="number">2</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (i+<span class="number">2</span> &lt; size &amp;&amp; j-<span class="number">1</span> &gt;= <span class="number">0</span> &amp;&amp; act[i+<span class="number">2</span>][j-<span class="number">1</span>] ==<span class="number">0</span>) &#123;</span><br><span class="line">        ls.add(<span class="keyword">new</span> Luozi(i+<span class="number">2</span>,j-<span class="number">1</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//一象限</span></span><br><span class="line">    <span class="keyword">if</span> (i-<span class="number">1</span> &gt;= <span class="number">0</span> &amp;&amp; j-<span class="number">2</span> &gt;= <span class="number">0</span> &amp;&amp; act[i-<span class="number">1</span>][j-<span class="number">2</span>] ==<span class="number">0</span>) &#123;</span><br><span class="line">        ls.add(<span class="keyword">new</span> Luozi(i-<span class="number">1</span>,j-<span class="number">2</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (i-<span class="number">2</span> &gt;= <span class="number">0</span> &amp;&amp; j-<span class="number">1</span> &gt;= <span class="number">0</span> &amp;&amp; act[i-<span class="number">2</span>][j-<span class="number">1</span>] ==<span class="number">0</span>) &#123;</span><br><span class="line">        ls.add(<span class="keyword">new</span> Luozi(i-<span class="number">2</span>,j-<span class="number">1</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//二象限</span></span><br><span class="line">    <span class="keyword">if</span> (i-<span class="number">1</span> &gt;= <span class="number">0</span> &amp;&amp; j+<span class="number">2</span> &lt; size &amp;&amp; act[i-<span class="number">1</span>][j+<span class="number">2</span>] ==<span class="number">0</span>) &#123;</span><br><span class="line">        ls.add(<span class="keyword">new</span> Luozi(i-<span class="number">1</span>,j+<span class="number">2</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (i-<span class="number">2</span> &gt;= <span class="number">0</span> &amp;&amp; j+<span class="number">1</span> &lt; size &amp;&amp; act[i-<span class="number">2</span>][j+<span class="number">1</span>] ==<span class="number">0</span>) &#123;</span><br><span class="line">        ls.add(<span class="keyword">new</span> Luozi(i-<span class="number">2</span>,j+<span class="number">1</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ls;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>有规则之后，直接使用该规则进行编写代码</p>
+<p>1、首先将马儿当前的坐标点置为step（当前步数）</p>
+<p>2、根据刚才的next方法来获取可选的坐标点</p>
+<p>3、遍历所有的坐标点，递归调用当前方法继续执行12操作</p>
+<p>4、如果遍历完之后没有达到预定步数，那么将当前坐标点置为0（未使用）进行回溯</p>
+<p>5、如果步数达到预定步数或者程序执行完（for循环是可以执行完的，是有出口的）程序结束。（因为不一定只有一种方案，全部遍历完需要花很长的时间）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DFS</span><span class="params">(<span class="keyword">int</span>[][] act,<span class="keyword">int</span> i, <span class="keyword">int</span> j,<span class="keyword">int</span> step)</span> </span>&#123;</span><br><span class="line">    act[i][j] = step;</span><br><span class="line">    <span class="keyword">if</span> (step == act.length * act.length) &#123;</span><br><span class="line">        <span class="comment">//如果达到预定步数，则打印</span></span><br><span class="line">        print(act);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//得到可以落子的坐标集合</span></span><br><span class="line">    List&lt;Luozi&gt; ls = next(act, i, j);</span><br><span class="line">    <span class="comment">//贪心思想，每次都尽量选取返回数量最小的，以减少回溯的次数</span></span><br><span class="line">    <span class="comment">//先注释</span></span><br><span class="line">    <span class="comment">//sort(ls,act);</span></span><br><span class="line">    <span class="keyword">for</span> (Luozi l : ls) &#123;</span><br><span class="line">        <span class="comment">//递归调用可用坐标</span></span><br><span class="line">        DFS(act,l.i,l.j,step+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//如果没有达到预定步数，将此点置为0，进行回溯</span></span><br><span class="line">    <span class="keyword">if</span> (step &lt; act.length * act.length) &#123;</span><br><span class="line">        act[i][j] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>存在的问题</strong></p>
+<p>该算法不足的点在于由于每个人在编写规则顺序不同，返回的list不同，走的路径也会不同。导致执行的时间往往会很长。上述算法通过计数器可得到，在6 x 6 棋盘，起始点{1,3}的情况下，找到第一种方案，需要执行该方法11195506次！如果我使用8 x 8的棋盘，根本走不完。</p>
+<p><strong>那么如果提高效率？</strong></p>
+<p>贪心思想</p>
+<p>如图，在6个点中，选哪一个点更加合适，这个就是提高算法效率的点。之前算法没有去定义，只按照了规则中的判断顺序得到</p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic2.zhimg.com/v2-bceaa466b43a02828988fa0843a8cc91_b.png" alt="img"></p>
+<p>可以直接将这6个点的下一个可走的点得到，看这6个点哪一个的下一个可选点最少，哪一个点就是<strong>相对</strong>最优选。这样选择“出口”最少的点进行搜索，是一种局部调优的做法，回溯的次数也会减少。测试可知，用贪心思想执行方法的次数变为了36次！8 x 8的也仅用64次！</p>
+<p><strong>回溯的次数与找到点有什么关系？</strong></p>
+<p>选择少的点遍历，少的点会越来越少，成功的机率会越来越大？</p>
+<p>其实我想它这种遍历方式，应该是从外圈到内圈的遍历方式，是一种循序的遍历过程，回溯过程缺失变少，试想如果任由自己跳，到最后阶段往往会不断进行回溯来调整之前的位置，也许这就是回溯少带来的优势。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//进行递增排序，贪心思想</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(List&lt;Luozi&gt; ls,<span class="keyword">int</span>[][] act)</span> </span>&#123;</span><br><span class="line">    ls.sort(<span class="keyword">new</span> Comparator&lt;Luozi&gt;() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Luozi o1, Luozi o2)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">int</span> a = next(act, o1.i, o1.j).size();</span><br><span class="line">            <span class="keyword">int</span> b = next(act, o2.i, o2.j).size();</span><br><span class="line">            <span class="keyword">if</span> (a &lt; b) &#123;</span><br><span class="line">                <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span>(a == b) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后只需要将之前得到的ls进行排序即可</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Luozi&gt; ls = next(act, i, j);</span><br><span class="line"><span class="comment">//贪心思想，每次都尽量选取返回数量最小的，以减少回溯的次数</span></span><br><span class="line"><span class="comment">//打开注释</span></span><br><span class="line">sort(ls,act);</span><br><span class="line"><span class="keyword">for</span> (Luozi l : ls) &#123;</span><br><span class="line">    <span class="comment">//递归调用可用坐标</span></span><br><span class="line">    DFS(act,l.i,l.j,step+<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">柠檬大师</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://leidl.top/post/f79807ee.html">https://leidl.top/post/f79807ee.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://leidl.top" target="_blank">柠檬大师的空间站</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a><a class="post-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/">算法</a></div><div class="post_share"><div class="social-share" data-image="https://image.leidl.top/img/20210808191151.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/6016428b.html"><img class="prev-cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://image.leidl.top/img/20210908223047.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">我的Butterfly美化</div></div></a></div><div class="next-post pull-right"><a href="/post/bf7f3b65.html"><img class="next-cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="/../../../img/default-bg-2.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">报考软件设计师的经历</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%EF%BC%88%E9%9D%9E%E9%80%92%E5%BD%92%EF%BC%89"><span class="toc-number">1.</span> <span class="toc-text">二分查找（非递归）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E6%B2%BB%E7%AE%97%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">分治算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92"><span class="toc-number">3.</span> <span class="toc-text">动态规划</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#KMP%E7%AE%97%E6%B3%95"><span class="toc-number">4.</span> <span class="toc-text">KMP算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95"><span class="toc-number">5.</span> <span class="toc-text">贪心算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95"><span class="toc-number">6.</span> <span class="toc-text">回溯算法</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2022 By 柠檬大师</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1280244891'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1280244891%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));</script></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><script async="async">var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())
+setTimeout(function(){preloader.endLoading();}, 5000);</script><div class="js-pjax"><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://my-vercel-ivory.vercel.app/',
+      region: ''
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'https://my-vercel-ivory.vercel.app/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script defer type="text/javascript" src="/js/custom.js"></script><script async src="//at.alicdn.com/t/font_2715980_5630evjgv57.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script data-pjax>function history_calendar_injector_config(){
+                var parent_div_git = document.getElementsByClassName('sticky_layout')[0];
+                var item_html = '<div class="card-widget card-history"><div class="card-content"><div class="item-headline"><i class="fas fa-clock fa-spin"></i><span>历史今日</span></div><div id="history-baidu" style="height: 100px;overflow: hidden"><div class="history_swiper-container" id="history-container" style="width: 100%;height: 100%"><div class="swiper-wrapper" id="history_container_wrapper" style="height:20px"></div></div></div></div>';
+                console.log('已挂载history_calendar')
+                // parent_div_git.innerHTML=item_html+parent_div_git.innerHTML // 无报错，但不影响使用(支持pjax跳转)
+                parent_div_git.insertAdjacentHTML("afterbegin",item_html) // 有报错，但不影响使用(支持pjax跳转)
+            }if( document.getElementsByClassName('sticky_layout')[0] && (location.pathname ==='/'|| '/' ==='all')){
+
+            history_calendar_injector_config()
+        } </script><script data-pjax  src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script><script data-pjax src="https://cdn.jsdelivr.net/gh/Zfour/Butterfly-card-history/baiduhistory/js/main.js"></script><script data-pjax>
+  function butterfly_footer_beautify_injector_config(){
+    var parent_div_git = document.getElementById('footer-wrap');
+    var item_html = '<div id="ghbdages" style="overflow:hidden;max-height:180px;height:auto;text-align:center;margin-top:10px"><div class="swiper-wrapper"><div class="swiper-slide"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" title="博客框架为Hexo_v5.4.0"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" title="主题版本Butterfly_v3.8.3"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://www.upyun.com/?utm_source=lianmeng&amp;utm_medium=referral" style="margin-inline:5px" title="本站使用又拍云提供CDN加速"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://img.shields.io/badge/CDN-%E5%8F%88%E6%8B%8D%E4%BA%91-00b6ff?style=flat&amp;logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAABS2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDIgNzkuMTYwOTI0LCAyMDE3LzA3LzEzLTAxOjA2OjM5ICAgICAgICAiPgogPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIi8+CiA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgo8P3hwYWNrZXQgZW5kPSJyIj8+nhxg7wAABs1JREFUSInllv2PVFcZxz/n3LfZmdmd3ZndZWGhhV0qYLaFEgzQpog12tZYbVRCSa00mLap6Q+aNERp5QcVlRhi0GjaGElromI08aU1tMRXWmspRaEVbIDtdimwy77M7uy83Xvn3nP84c7b7oD/QE8yyT13znO/z/f7nOcF3m9L1B4OnNYYEoSG165kGZkukLLjdEmXiew4yum7+4qK31u2rduLFXOgEEoQCrQs9RjepaW2f35Nu/9QqRh4Fi4jrkHCMmhTitlCBcOIoP768CoAzGt5owFLQBKfad/Yflau+Mo4qY0IE8qAUbXUgKT9ctFZVJAzqzcivLN+/JGY0H6HKD0riKGvw7gFWAFtUmMTyFPF5C+Gded2LBmBaB2BAigRyeMJ0jGPgxtiyX+MtW18/ZL1DLEMK/TER9eb+Z2GQGU1CK0b8gKy9uCYYJmQcUCgUm+U0qeGw/R2pIwAdbPvAiE0aAGux0MDc7eJAJ57V7+GZYAQjLDo8yd0z6lAqQ5bBbh+iF8JWxmP5XwSJrhCyz9NJU7mdHwwknOBWEKAAq0EuIrPrKp8d3lb+M/HT/qvlsN2pKNRSoDUXAxSN+eKlWMPD7jrFi3pZc4NeHUh4+zcNMW5q/z47dLhi4X4IHYt2hFDBBFDpUmYJXoNb+y23tzPHlgRfu2F8bZ9s4W2zdgSpap2OopbzsysPUHX85YIcdU1YnxLX5pT0+59w+X4NqwmpgIIgUCxNF4+vsaY2bsknjtq+yYTnsGhMx33H8127SFp03KTBBAT/H3U+qTIZe9ambFfagHOl0OOjJs/wjCZdwtCARI2d899Z0iP7Rkv2J0ngu49xUCvu1R2+sJS6g4MAyF11deasY5+CjBs3jE6f3KrMXlDC/Cfr0xuuegtWYIpmjwXUA7YcbP69tb2ypPfO5naPyJ7d4fKioLUDihdVxZEpI4ApGiEyoKLM8aydyx5J/CXeTE+m5PbkFZV4qpBoPlAJnh7R7rw5G8vm9+/4PfvDg0rSiMdgYraeQ0xGVZu78o9tSUx9ViK0pUGc0CbTNtdu1oYG7Geu+vFAaLbqz0+3B1sf2WKnhcvJ79MvCn21JiKiGIAt6amn9scK+4brpiskOHMKRU/jCSS2xG8ddVbVcOrM54KrBvqoERyO4YqLTaKb76ct7+JtufHfuEyYKIkeoKKpN12ySs1QF28qkJmrL8FuBwqv7HTEELC4b/Fks/EjPgcDq05TeO8EJrhSten35KLDjpmhfd8/QBNYY6clp0twC1LAmGQLJdyCF08gub/MtYCECZni+JBTyYwrKS7ML2UbrxplEwpHeoJHkk9IPO/z3QluKen/GC/MXuM8PrIQkc3+sY298hAwsIQbSvnAWuwpSq3AGesyhhh08EwZKBdHi+EDjEkyxLBm9dtNYjqXx5DTnHvsCeXFCoi1fh6VPEsEYy3ACf1zN9qlRE0whAcdzM/GCk5Hz+W1dv+U0jubFy+aqdpFsCD9en8r4ba9fDLU6mfI8wo7Zqc65Ccru3q6dQtC79EVb6AUc1lQzJakP2jOvUSZrqKUgu0QMvqNgBkyOpk7ndfXKruP+11Pf5uwdgqHYWqHwIIGTTLh88tBN7a3/3i+VF/ZtyzujAFut57a0d0A1sDpdzoUkfMdCTNs4Pm3MG1nfL1Fy7bjxwtxn6IXfOzauNDZ6w8u67Pf/7IQuDB3hSfCMtPHDoX/hTDaJKxXgzR1ca/PjnzxOL47IGgXOYG2+U9f/Gyw1Op31yYsz6LKcEEpZryyPe5d1B+dWnf4rrwdeATo+P0yfBQr53cOVHp2oIjWpo/LgwlZp/etdo78MeJ9DeO5cUmM+fflNcdy9E2ONGkoWvZIQSUFGt63ZNb+hPPzPr1S9KUTlYndizDl1Zan+qOlXNUqobVD2gPMubcyP4PlR57Ix979MhI+9fLRsfH8qJ7OYYNhkZo1dRfNATQ3ebmdq2073KFQTmgFfjG7jjprjgrMsncPb2FDXEKkwRV8BCEGbD7g2LNmdnYwLPn257Gro6kNMaixlQlwJckVXbyvszsBseJTU+VqA4JC4DdisavwNUy2Ia4sCk5OdRvzLxCBXAVj64NdvTGtbf337ETaBvMa3V9EQ2BFbgpkf/XnbHpIUuHF2YrYMqGgPNi3OxJIZQgjYmNidIdYwHfyjpZ3ZGtHN6fXXbOVfE0MebncHXMAUiL4uRHlpQP3pJW+04OC3KhST+tw8k152oJeEpQNGxWx0tP+WGeK0Xbcb3SWCYpTS80ul0lECi0EF6n8LNJOzjThvuHobj/603dTnFcORQDQcf1y937bP0Pc6b8FW3Czt0AAAAASUVORK5CYII=" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" title="本站项目由Gtihub托管"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a><a class="github-badge" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" style="margin-inline:5px" title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&amp;logo=Claris" alt=""/></a><a class="github-badge" target="_blank" href="https://beian.miit.gov.cn/" style="margin-inline:5px" title="本站备案信息"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://img.shields.io/badge/%E4%BA%ACICP%E5%A4%87-2021025614%E5%8F%B7--1-e1d492?style=flat&amp;logo=data:image/png;base64,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" alt=""/></a></div></div></div><style>a.github-badge:hover:before {display:none}</style>';
+    console.log('已挂载butterfly_footer_beautify')
+    parent_div_git.insertAdjacentHTML("beforeend",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_footer_beautify_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_footer_beautify_injector_config();
+  }
+  </script><script defer src="https://cdn.jsdelivr.net/npm/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://cdn.jsdelivr.net/npm/hexo-butterfly-footer-beautify/lib/swiperbdage_init_js.min.js"></script><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

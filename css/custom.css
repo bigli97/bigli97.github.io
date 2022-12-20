@@ -1,0 +1,129 @@
+/* 自定义css */
+svg.icon {
+   width: 1em; height: 1em;
+   /* width和height定义图标的默认宽度和高度*/
+   vertical-align: -0.15em;
+   fill: currentColor;
+   overflow: hidden;
+}
+
+/* 页脚去色 */
+#footer {
+    background: none;
+}
+
+/* 所有标签标题居中 */
+#page h1.page-title, #post>#post-info {
+    text-align: center;
+}
+
+/* 调整公告处动画与颜色 */
+.card-announcement-animation{
+    color: #7CFC00
+}
+
+/* 标签链接div变为span */
+#article-container .tag.link {
+    display:inline-block
+}
+
+/* 鼠标样式 */
+body {
+    cursor: url(https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@latest/Hexo/img/default.cur),default;
+}
+a,img {
+    cursor: url(https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@latest/Hexo/img/pointer.cur),default;
+}
+
+
+.author-info__name {
+    color: #1e8f84;
+}
+
+/* 头像禁止转动 */
+.avatar-img img:hover {
+    -webkit-transform: none;
+    transform: none;
+}
+
+/* 使用opacity可以设置当前透明度，避免切换dark模式产生颜色单一的问题 */
+/* 文章栏变色 */
+#recent-posts>.recent-post-item,.layout_page>div:first-child:not(.recent-posts),.layout_post>#page,.layout_post>#post,.read-mode .layout_post>#post {
+    opacity: 0.9;
+}
+/* 侧边栏去色 */
+#aside-content .card-widget {
+    opacity: 0.9;
+}
+
+/* 页脚样式取消 */
+.framework-info {
+    display: none!important;
+}
+
+/* 标题美化 */
+/* #article-container.post-content h1:before {
+    content: " H₁ "
+}
+
+#article-container.post-content h2:before {
+    content: " H₂ "
+}
+
+#article-container.post-content h3:before {
+    content: " H₃ "
+}
+
+#article-container.post-content h4:before {
+    content: " H₄ "
+}
+
+#article-container.post-content h5:before {
+    content: " H₅ "
+}
+
+#article-container.post-content h6:before {
+    content: " H₆ "
+} */
+
+/*10s为加载动画的时间，1为加载动画的次数，ease-in-out为动画效果*/
+/* #page-header,
+#web_bg {
+    -webkit-animation: imgblur 10s 1 ease-in-out;
+    animation: imgblur 10s 1 ease-in-out;
+}
+@keyframes imgblur {
+  0% {
+    filter: blur(5px);
+  }
+  100% {
+    filter: blur(0px);
+  }
+} */
+/*适配使用-webkit内核的浏览器 */
+/* @-webkit-keyframes imgblur {
+  0% {
+    -webkit-filter: blur(5px);
+  }
+  100% {
+    -webkit-filter: blur(0px);
+  }
+} */
+
+/* 暂时不用的 */
+/* #footer::before {
+    background: rgba(255,255,255,.15)
+} */
+/* #footer #footer-wrap {
+    color: #fff;
+}
+#footer #footer-wrap a {
+    color: #fff;
+} */
+
+/* background: var(--light_bg_color) */
+/* 背景色渐变 */
+/* #web_bg {
+	background: linear-gradient(to right, #f7f9fe 0%, #f2f8fa 100%);
+} */
+
