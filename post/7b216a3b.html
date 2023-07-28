@@ -1,0 +1,605 @@
+<!DOCTYPE html><html class="hide-aside" lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>树 | 柠檬大师的空间站</title><meta name="keywords" content="数据结构"><meta name="author" content="柠檬大师"><meta name="copyright" content="柠檬大师"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="为什么需要树这种数据结构 树的常用术语 树结构Java代码实现 前中后序遍历 赫夫曼部分 赫夫曼树 赫夫曼编码 赫夫曼加密文件 二叉树部分 顺序存储二叉树 线索化二叉树 二叉排序树 平衡二叉树 多叉树部分 B+树和B*树 红黑树  以下只给出思路与关键方法，算法的源代码放在了git中，需要的自取 https:&#x2F;&#x2F;gitee.com&#x2F;leidl97&#x2F;algor 为什么需要树这种数据结构因为树结构存">
+<meta property="og:type" content="article">
+<meta property="og:title" content="树">
+<meta property="og:url" content="https://leidl.top/post/7b216a3b.html">
+<meta property="og:site_name" content="柠檬大师的空间站">
+<meta property="og:description" content="为什么需要树这种数据结构 树的常用术语 树结构Java代码实现 前中后序遍历 赫夫曼部分 赫夫曼树 赫夫曼编码 赫夫曼加密文件 二叉树部分 顺序存储二叉树 线索化二叉树 二叉排序树 平衡二叉树 多叉树部分 B+树和B*树 红黑树  以下只给出思路与关键方法，算法的源代码放在了git中，需要的自取 https:&#x2F;&#x2F;gitee.com&#x2F;leidl97&#x2F;algor 为什么需要树这种数据结构因为树结构存">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://image.leidl.top/img/20210808184527.png">
+<meta property="article:published_time" content="2021-04-08T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-02-06T08:34:04.464Z">
+<meta property="article:author" content="柠檬大师">
+<meta property="article:tag" content="数据结构">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image.leidl.top/img/20210808184527.png"><link rel="shortcut icon" href="https://leidl.top/img/favicon.ico"><link rel="canonical" href="https://leidl.top/post/7b216a3b"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="manifest" href="/manifest.json"/><meta name="msapplication-TileColor" content="#ffffff"/><link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png"/><link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png"/><link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png"/><link rel="mask-icon" href="/img/safari-pinned-tab.svg" color="#5bbad5"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":30,"position":"top","messagePrev":"距离上次更新已经过了","messageNext":"天，文中部分内容可能已经过时，如有疑问，请在下方留言"},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":600},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":500,"languages":{"author":"作者: 柠檬大师","link":"链接: ","source":"来源: 柠檬大师的空间站","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"top-center"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '树',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-02-06 16:34:04'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/bb.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Zfour/Butterfly-card-history/baiduhistory/css/main.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-butterfly-footer-beautify@1.0.0/lib/runtime.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-butterfly-swiper/lib/swiper.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.min.css" media="defer" onload="this.media='all'"><script async src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><a href="javascript:void(0);" onclick="preloader.endLoading();" title="点击跳过动画"></a><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="iron-container iron-circle"><div class="iron-box1 iron-circle iron-center"></div><div class="iron-box2 iron-circle iron-center"></div><div class="iron-box3 iron-circle iron-center"></div><div class="iron-box4 iron-circle iron-center"></div><div class="iron-box5 iron-circle iron-center"></div><div class="iron-box6 iron-circle"><div class="iron-coil" style="--i: 0"></div><div class="iron-coil" style="--i: 1"></div><div class="iron-coil" style="--i: 2"></div><div class="iron-coil" style="--i: 3"></div><div class="iron-coil" style="--i: 4"></div><div class="iron-coil" style="--i: 5"></div><div class="iron-coil" style="--i: 6"></div><div class="iron-coil" style="--i: 7"></div></div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://leidl.top/img/favicon.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">88</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">25</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-shouye_huaban"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-shijianzhou"></use></svg><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-biaoqian-copy-copy"></use></svg><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-ziyuan"></use></svg><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/talk/"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-liuyanban"></use></svg><span> 闲言碎语</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-lianjie"></use></svg><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/board/"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-xiaoxi"></use></svg><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-bixin1"></use></svg><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://image.leidl.top/img/20210808184527.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">柠檬大师的空间站</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-shouye_huaban"></use></svg><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-wenzhang"></use></svg><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-shijianzhou"></use></svg><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-biaoqian-copy-copy"></use></svg><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-ziyuan"></use></svg><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/talk/"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-liuyanban"></use></svg><span> 闲言碎语</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-lianjie"></use></svg><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/board/"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-xiaoxi"></use></svg><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-bixin1"></use></svg><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">树</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-04-08T16:00:00.000Z" title="发表于 2021-04-09 00:00:00">2021-04-09</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-02-06T08:34:04.464Z" title="更新于 2023-02-06 16:34:04">2023-02-06</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">7.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>27分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="树"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><ol>
+<li>为什么需要树这种数据结构</li>
+<li>树的常用术语</li>
+<li>树结构Java代码实现</li>
+<li>前中后序遍历</li>
+<li>赫夫曼部分</li>
+<li>赫夫曼树</li>
+<li>赫夫曼编码</li>
+<li>赫夫曼加密文件</li>
+<li>二叉树部分</li>
+<li>顺序存储二叉树</li>
+<li>线索化二叉树</li>
+<li>二叉排序树</li>
+<li>平衡二叉树</li>
+<li>多叉树部分</li>
+<li>B+树和B*树</li>
+<li>红黑树</li>
+</ol>
+<p>以下只给出思路与关键方法，算法的源代码放在了git中，需要的自取</p>
+<p><a target="_blank" rel="noopener" href="https://gitee.com/leidl97/algorithm-src">https://gitee.com/leidl97/algor</a></p>
+<h2 id="为什么需要树这种数据结构"><a href="#为什么需要树这种数据结构" class="headerlink" title="为什么需要树这种数据结构"></a><strong>为什么需要树这种数据结构</strong></h2><p><strong>因为树结构存入读取数据相较于其他数据结构更有效率！</strong></p>
+<p>1、数组存储方式分析</p>
+<p>优点：通过下标方式访问元素，速度快。对于有序数组，还可以使用二分查找来提高检索速度</p>
+<p>缺点：如果要检索具体的某个值，或者插入会整体移动，效率降低</p>
+<p>2、链式结构的分析</p>
+<p>优点：插入和删除一个节点效率较快</p>
+<p>缺点：进行检索时，效率仍然较低，需要从头节点进行遍历</p>
+<p>3、树结构分析</p>
+<p>提高存储，读取的效率，比如利用二叉树排序，既可以保证存储速度，也可以保证读取速度，修改、删除等同样</p>
+<h2 id="树的常用术语"><a href="#树的常用术语" class="headerlink" title="树的常用术语"></a><strong>树的常用术语</strong></h2><ul>
+<li>节点：一个圆圈表示一个节点</li>
+<li>根节点：最上方的节点</li>
+<li>父节点：谁指向它谁就是父节点</li>
+<li>子节点：它指向谁就表示谁是子节点</li>
+<li>叶子节点：最下面一层节点（没有子节点的节点）</li>
+<li>权：表示节点的值</li>
+</ul>
+<p>二叉树，顾名思义就是两个叉，一个节点下最多有两个子节点</p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic3.zhimg.com/v2-9f330493d21704ef7096b300554c817a_b.png" alt="img"></p>
+<p>如果所有二叉树的叶子节点都在最后一层，则我们成为满二叉树</p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic4.zhimg.com/v2-d5f2f252670ee4f475df5c992d346f63_b.png" alt="img"></p>
+<p>如果最后一层左连续，且其他层都是满的，我们称之为完全二叉树，如图</p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic3.zhimg.com/v2-9e7718b8235bfcfdc00b82f10d7d4582_b.png" alt="img"></p>
+<h2 id="树结构Java代码实现"><a href="#树结构Java代码实现" class="headerlink" title="树结构Java代码实现"></a><strong>树结构Java代码实现</strong></h2><p><strong>以二叉树为例</strong></p>
+<p>主要属性：左节点，右节点，权</p>
+<p>属性定义</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span> </span>&#123;</span><br><span class="line">    <span class="comment">//左子树</span></span><br><span class="line">    <span class="keyword">public</span> Node leftNode;</span><br><span class="line">    <span class="comment">//右子树</span></span><br><span class="line">    <span class="keyword">public</span> Node rightNode;</span><br><span class="line">    <span class="comment">//节点的权</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> value;</span><br><span class="line">    <span class="comment">//初始化节点</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Node</span><span class="params">(<span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.value = value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>增加，修改节点都是通过不断寻找，如果节点为空进行相应的操作</p>
+<p>但无论是哪种树，删除操作都是最复杂的。后面会详细讨论</p>
+<h2 id="前中后序遍历"><a href="#前中后序遍历" class="headerlink" title="前中后序遍历"></a><strong>前中后序遍历</strong></h2><p><strong>以父为准！</strong></p>
+<p>前序遍历：<strong>父</strong>左右</p>
+<p>中序遍历：左<strong>父</strong>右</p>
+<p>后序遍历：左右<strong>父</strong></p>
+<p>代码实现逻辑（<strong>递归思想</strong>）</p>
+<p><strong>前序遍历</strong></p>
+<p>1、先输出当前节点</p>
+<p>2、向左节点遍历（如果节点不为空）</p>
+<p>3、向右节点遍历（如果节点不为空）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//前序遍历</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">beforeTraversal</span><span class="params">(Node node)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//首先输出当前节点</span></span><br><span class="line">    System.out.print(node.getValue() + <span class="string">&quot;\t&quot;</span>);</span><br><span class="line">    <span class="comment">//向左遍历</span></span><br><span class="line">    <span class="keyword">if</span> (node.getLeftNode()!=<span class="keyword">null</span>) &#123;</span><br><span class="line">        beforeTraversal(node.getLeftNode());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//向右遍历</span></span><br><span class="line">    <span class="keyword">if</span> (node.getRightNode()!=<span class="keyword">null</span>) &#123;</span><br><span class="line">        beforeTraversal(node.getRightNode());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>中序遍历</strong></p>
+<p>1、向左节点遍历（如果节点不为空）</p>
+<p>2、先输出当前节点</p>
+<p>3、向右节点遍历（如果节点不为空）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//中序遍历</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">centerTraversal</span><span class="params">(Node node)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//首先找到最左节点</span></span><br><span class="line">    <span class="keyword">if</span> (node.getLeftNode()!=<span class="keyword">null</span>) &#123;</span><br><span class="line">        centerTraversal(node.getLeftNode());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//其次输出当前节点</span></span><br><span class="line">    System.out.print(node.getValue() + <span class="string">&quot;\t&quot;</span>);</span><br><span class="line">    <span class="comment">//最后向右进行遍历</span></span><br><span class="line">    <span class="keyword">if</span> (node.getRightNode()!=<span class="keyword">null</span>) &#123;</span><br><span class="line">        centerTraversal(node.getRightNode());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>后序遍历</strong></p>
+<p>1、向左节点遍历（如果节点不为空）</p>
+<p>2、向右节点遍历（如果节点不为空）</p>
+<p>3、先输出当前节点</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//后序遍历</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterTraversal</span><span class="params">(Node node)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//首先找到最左节点</span></span><br><span class="line">    <span class="keyword">if</span> (node.getLeftNode()!=<span class="keyword">null</span>) &#123;</span><br><span class="line">        centerTraversal(node.getLeftNode());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//其次向右遍历</span></span><br><span class="line">    <span class="keyword">if</span> (node.getRightNode()!=<span class="keyword">null</span>) &#123;</span><br><span class="line">        centerTraversal(node.getRightNode());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//最后输出节点</span></span><br><span class="line">    System.out.print(node.getValue() + <span class="string">&quot;\t&quot;</span>);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>各种遍历进行查找，道理是一样的，重新构建方法，多传入一个目标值value，以前序遍历为准，则代码实现为</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//前序遍历查找</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">beforeTraversalSearch</span><span class="params">(Node node, <span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">    count++;</span><br><span class="line">    <span class="keyword">if</span> (node.getValue() == value) &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;找到该元素:&quot;</span>+value+<span class="string">&quot;，次数为:&quot;</span>+count);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//向左遍历</span></span><br><span class="line">    <span class="keyword">if</span> (node.getLeftNode()!=<span class="keyword">null</span>) &#123;</span><br><span class="line">        beforeTraversalSearch(node.getLeftNode(),value);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//向右遍历</span></span><br><span class="line">    <span class="keyword">if</span> (node.getRightNode()!=<span class="keyword">null</span>) &#123;</span><br><span class="line">        beforeTraversalSearch(node.getRightNode(),value);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="赫夫曼树（wpl最小的树）"><a href="#赫夫曼树（wpl最小的树）" class="headerlink" title="赫夫曼树（wpl最小的树）"></a><strong>赫夫曼树（wpl最小的树）</strong></h2><p>介绍：给定n个权值为n个叶子结点，构造一棵二叉树，若该树的带权路径长度（wpl）达到最小，称这样的二叉树为最优二叉树，也叫赫夫曼树（HuffmanTree）</p>
+<p><strong>情景模拟</strong>：给你一个数组，要求创建一颗赫夫曼树。比如{13，7，8，3，29，6，1}</p>
+<p>步骤</p>
+<p>1、先排序（这不是重点，怎么实现快怎么来）</p>
+<p>{1，3，6，7，8，13，29}</p>
+<p>2、根据前两个数值相加得到一个权值，在与后面进行比较</p>
+<p>3、直到处理完所有的数字则构建出一颗赫夫曼树</p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic2.zhimg.com/v2-03573a5858f5fbca6875ee1d5e1df6fd_b.png" alt="img"></p>
+<p>构建结果如图</p>
+<p><strong>难点</strong></p>
+<p>1、如何判断提供的值已经用完</p>
+<p>用集合，每次排完之后都会删掉左右结点，然后添加父节点，当最后集合中元素数量为1时（集合大小总是先-2在+1，最后剩下的为相加的权值），即为消耗完</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">huffmanBuild</span><span class="params">(<span class="keyword">int</span>[] a)</span> </span>&#123;</span><br><span class="line">    Arrays.sort(a);</span><br><span class="line">    List&lt;Node&gt; nodes = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> value : a) &#123;</span><br><span class="line">        <span class="comment">//向集合加入node对象</span></span><br><span class="line">        nodes.add(<span class="keyword">new</span> Node(value));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (nodes.size() &gt; <span class="number">1</span>) &#123;</span><br><span class="line">        Node leftNode = nodes.get(<span class="number">0</span>);</span><br><span class="line">        Node rigtNode = nodes.get(<span class="number">1</span>);</span><br><span class="line">        Node parent = <span class="keyword">new</span> Node(leftNode.getValue() + rigtNode.getValue());</span><br><span class="line">        <span class="comment">//构建一颗二叉树</span></span><br><span class="line">        parent.setLeftNode(leftNode);</span><br><span class="line">        parent.setRightNode(rigtNode);</span><br><span class="line">        nodes.remove(leftNode);</span><br><span class="line">        nodes.remove(rigtNode);</span><br><span class="line">        nodes.add(parent);</span><br><span class="line">        <span class="comment">//将现有的集合进行排序</span></span><br><span class="line">        Collections.sort(nodes, <span class="keyword">new</span> Comparator&lt;Node&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Node o1, Node o2)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> o1.getValue() - o2.getValue();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    Tree tree = <span class="keyword">new</span> Tree(nodes.get(<span class="number">0</span>));</span><br><span class="line">    tree.beforeTraversal(tree.getRoot());</span><br><span class="line">    System.out.println();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="赫夫曼编码"><a href="#赫夫曼编码" class="headerlink" title="赫夫曼编码"></a><strong>赫夫曼编码</strong></h2><p>1、属于一种编程算法</p>
+<p>2、在电讯通信中的经典应用</p>
+<p>3、可用于数据文件压缩，压缩率在20% — 90%之间</p>
+<p>4、是可变字长编码（VLC）的一种，称之为最佳编码，是无损压缩</p>
+<p><strong>怎么理解</strong></p>
+<p>假如一串文本为：i like java，会转为ASCII码，在转为二进制，这叫做<strong>定长编码</strong></p>
+<p>一般不会这么做，因为太长了，所以通信领域信息的处理方式为<strong>变长编码</strong></p>
+<p>首先统计字符串中每个字母出现的个数，出现次数越多的，编码越小。但每个字符的编码不能是其他字符的前缀。比如a用1表示，b不能用10表示，这样机器在解码的时候扫描到1就无法进行解码，存在二义性。</p>
+<p>第三种编码方式叫做<strong>赫夫曼编码</strong></p>
+<p>把各个编码<strong>出现的次数称为权值</strong>，然后构建一颗赫夫曼树，规定向左的路径为0，向右路径为1，从根节点到目标结点的路径即为编码</p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic3.zhimg.com/v2-39538ac42161132e0d87a94c7c1f2076_b.png" alt="img"></p>
+<p>如图所示，每个字母都会有一个自己的编码，不存在二义性</p>
+<h3 id="意义"><a href="#意义" class="headerlink" title="意义"></a><strong>意义</strong></h3><p>对文本进行压缩</p>
+<p>用程序实现赫夫曼树编码</p>
+<p><strong>难点</strong></p>
+<p>1、如何统计字符出现的次数</p>
+<p>设一个集合，将遍历过的放进去</p>
+<p>2、如何为每个字符设置计数器</p>
+<p>设置一个hashmap用来统计</p>
+<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a><strong>步骤</strong></h3><p>1、获取需要构成赫夫曼树的叶子结点</p>
+<p>2、利用这些结点构建赫夫曼树</p>
+<p>3、对赫夫曼树进行编码（涉及遍历递归）</p>
+<p>4、对生成的编码集进行压缩（将二进制编码压缩为10进制字节组）</p>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a><strong>代码实现</strong></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HuffManCode</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String s = <span class="string">&quot;i like like like java do you like a java&quot;</span>;</span><br><span class="line">        List&lt;Byte&gt; encoding = encoding(s);</span><br><span class="line">        System.out.println(<span class="string">&quot;压缩前该文本长度为：&quot;</span>+s.length());</span><br><span class="line">        System.out.println(<span class="string">&quot;压缩前该文本长度为：&quot;</span>+encoding.size()+<span class="string">&quot;。压缩率为：&quot;</span>+ (Double.valueOf(s.length() - encoding.size()) / Double.valueOf(s.length()) * <span class="number">100</span>) + <span class="string">&quot;%&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//将文本信息转为赫夫曼编码</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> List&lt;Byte&gt; <span class="title">encoding</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">byte</span>[] bs = s.getBytes();</span><br><span class="line">        <span class="comment">//定义赫夫曼树结点</span></span><br><span class="line">        List&lt;HuffManTree&gt; nodes = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="comment">//定义已经存在的字符集合</span></span><br><span class="line">        List&lt;Byte&gt; bytes = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="comment">//定义已经存在的字符出现的次数集合</span></span><br><span class="line">        Map&lt;Byte,Integer&gt; flags = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="comment">//创建构建赫夫曼树所需的结点信息</span></span><br><span class="line">        nodeBuild(flags,bytes,nodes,bs);</span><br><span class="line">        <span class="comment">//利用这些结点构建赫夫曼树</span></span><br><span class="line">        HuffManTree huffManTree = huffmanBuild(nodes);</span><br><span class="line">        <span class="comment">//设置编码集</span></span><br><span class="line">        Map&lt;Byte,String&gt; results = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="comment">//进行编码</span></span><br><span class="line">        huffmanEncoding(huffManTree, results,<span class="string">&quot;&quot;</span>);</span><br><span class="line">        results.forEach((k,v) -&gt; System.out.println(<span class="string">&quot;数据为：&quot;</span>+k+<span class="string">&quot;。对应的编码值为：&quot;</span>+v));</span><br><span class="line">        <span class="comment">//将字长进行压缩</span></span><br><span class="line">        <span class="keyword">return</span> zip(bs,results);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取需要构成赫夫曼树的叶子结点</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> flags 计算次数</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> bytes 放入结果</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> nodes 结果集中的结点</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> bs 原始数据</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">nodeBuild</span><span class="params">(Map&lt;Byte,Integer&gt; flags, List&lt;Byte&gt; bytes,List&lt;HuffManTree&gt; nodes, <span class="keyword">byte</span>[] bs)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">byte</span> b : bs) &#123;</span><br><span class="line">            <span class="keyword">if</span> (bytes.contains(b)) &#123;</span><br><span class="line">                <span class="comment">//说明已经存在</span></span><br><span class="line">                flags.put(b, flags.get(b)+<span class="number">1</span>);</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//说明第一次遍历到</span></span><br><span class="line">            flags.put(b, <span class="number">1</span>);</span><br><span class="line">            bytes.add(b);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        flags.forEach((k,v) -&gt; nodes.add(<span class="keyword">new</span> HuffManTree(k,v)));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> List&lt;Byte&gt; <span class="title">zip</span><span class="params">(<span class="keyword">byte</span>[] bs, Map&lt;Byte,String&gt; results)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//替换原有编码</span></span><br><span class="line">        StringBuffer sb = <span class="keyword">new</span> StringBuffer();</span><br><span class="line">        <span class="comment">//生成新编码</span></span><br><span class="line">        List&lt;Byte&gt; bytes = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        System.out.print(<span class="string">&quot;原始数据为：&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">byte</span> b : bs) &#123;</span><br><span class="line">            System.out.print(b + <span class="string">&quot;\t&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println();</span><br><span class="line">        <span class="comment">//将原始byte数组的值替换为对应的编码</span></span><br><span class="line">        <span class="keyword">for</span> (Byte b : bs) &#123;</span><br><span class="line">            sb.append(results.get(b));</span><br><span class="line">        &#125;</span><br><span class="line">        String s;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; sb.length(); i+=<span class="number">8</span>) &#123;</span><br><span class="line">            s = i+<span class="number">8</span> &lt; sb.length() ? sb.substring(i,i+<span class="number">8</span>) : sb.substring(i,sb.length());</span><br><span class="line">            <span class="keyword">byte</span> a = (<span class="keyword">byte</span>)Integer.parseInt(s, <span class="number">2</span>);</span><br><span class="line">            bytes.add(a);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(bytes);</span><br><span class="line">        System.out.println(sb);</span><br><span class="line">        System.out.println(<span class="string">&quot;该编码的字长为：&quot;</span>+sb.length());</span><br><span class="line">        <span class="keyword">return</span> bytes;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 进行编码</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> huffManTree 赫夫曼树</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> results 编码值哈希表</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> s 记录编码值</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">huffmanEncoding</span><span class="params">(HuffManTree huffManTree, Map&lt;Byte,String&gt; results, String s)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//进行遍历，然后处理</span></span><br><span class="line">        <span class="keyword">if</span> (huffManTree.b != <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">//当前遍历到的元素不为0，说明为结点元素，需要给一个编码值</span></span><br><span class="line">            results.put(huffManTree.b, s);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (huffManTree.left != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">//这里不能写s += &quot;0&quot;，因为返回上一层已经在上一层先赋值在使用，所以上层会延续下层的值</span></span><br><span class="line">            huffmanEncoding(huffManTree.left, results, s + <span class="string">&quot;0&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (huffManTree.right != <span class="keyword">null</span>) &#123;</span><br><span class="line">            huffmanEncoding(huffManTree.right, results, s + <span class="string">&quot;1&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> HuffManTree <span class="title">huffmanBuild</span><span class="params">(List&lt;HuffManTree&gt; list)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//需要实现Comparable接口并重写对应的方法</span></span><br><span class="line">        Collections.sort(list);</span><br><span class="line">        <span class="keyword">while</span> (list.size() &gt; <span class="number">1</span>) &#123;</span><br><span class="line">            HuffManTree leftNode = list.get(<span class="number">0</span>);</span><br><span class="line">            HuffManTree rigtNode = list.get(<span class="number">1</span>);</span><br><span class="line">            HuffManTree parent = <span class="keyword">new</span> HuffManTree(leftNode.weight + rigtNode.weight);</span><br><span class="line">            <span class="comment">//构建一颗二叉树</span></span><br><span class="line">            parent.left = leftNode;</span><br><span class="line">            parent.right = rigtNode;</span><br><span class="line">            list.remove(leftNode);</span><br><span class="line">            list.remove(rigtNode);</span><br><span class="line">            list.add(parent);</span><br><span class="line">            <span class="comment">//将现有的集合进行排序</span></span><br><span class="line">            Collections.sort(list);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//最后剩下的是这颗赫夫曼树的头节点</span></span><br><span class="line">        System.out.println(<span class="string">&quot;成功构建该树，前序遍历结果如下&quot;</span>);</span><br><span class="line">        preTraversal(list.get(<span class="number">0</span>));</span><br><span class="line">        <span class="keyword">return</span> list.get(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">preTraversal</span><span class="params">(HuffManTree node)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (node != <span class="keyword">null</span>) &#123;</span><br><span class="line">            System.out.println(node);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (node.left != <span class="keyword">null</span>) &#123;</span><br><span class="line">            preTraversal(node.left);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (node.right != <span class="keyword">null</span>) &#123;</span><br><span class="line">            preTraversal(node.right);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="赫夫曼解码"><a href="#赫夫曼解码" class="headerlink" title="赫夫曼解码"></a><strong>赫夫曼解码</strong></h2><p>能编就会解，反着来就可以</p>
+<h3 id="步骤-1"><a href="#步骤-1" class="headerlink" title="步骤"></a><strong>步骤</strong></h3><p>1、根据编码集results创建解码集</p>
+<p>2、将给定的byte编码集先转为8位2进制字符串</p>
+<p>3、将得到的二进制串按照解码集去解码得到byte集合</p>
+<p>4、将byte集合转为byte数组</p>
+<h3 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a><strong>代码实现</strong></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 赫夫曼解码</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> bytes 需要解密的文本</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> results 编码集</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> String <span class="title">decoding</span><span class="params">(List&lt;Byte&gt; bytes, Map&lt;Byte,String&gt; results)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//根据编码集results创建解码集</span></span><br><span class="line">    Map&lt;String, Byte&gt; decoding = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    results.forEach((k,v) -&gt; decoding.put(v,k));</span><br><span class="line">    <span class="comment">//将给定的byte编码集先转为8位2进制字符串</span></span><br><span class="line">    StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; bytes.size(); i++) &#123;</span><br><span class="line">        <span class="keyword">byte</span> b = bytes.get(i);</span><br><span class="line">        <span class="comment">//返回的为二进制的补码</span></span><br><span class="line">        String string = Integer.toBinaryString(b);</span><br><span class="line">        <span class="keyword">if</span> (b &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            string = string.substring(string.length() - <span class="number">8</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//表示8位整数，不够高位补0，最后一位且为正数不做处理</span></span><br><span class="line">        <span class="keyword">if</span> (i != bytes.size() - <span class="number">1</span> &amp;&amp; b &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            string = String.format(<span class="string">&quot;%08d&quot;</span>,Integer.parseInt(string));</span><br><span class="line">        &#125;</span><br><span class="line">        sb.append(string);</span><br><span class="line">    &#125;</span><br><span class="line">    String result = sb.toString();</span><br><span class="line">    <span class="comment">//创建结果集</span></span><br><span class="line">    String temp = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    List&lt;Byte&gt; byteResults = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    <span class="keyword">char</span>[] array = result.toCharArray();</span><br><span class="line">    <span class="comment">//将得到的二进制串按照解码集去解码得到byte集合</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">char</span> c : array) &#123;</span><br><span class="line">        temp += c;</span><br><span class="line">        Byte b = decoding.get(temp);</span><br><span class="line">        <span class="keyword">if</span> (b != <span class="keyword">null</span>) &#123;</span><br><span class="line">            byteResults.add(b);</span><br><span class="line">            temp = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//将byte集合转为byte数组</span></span><br><span class="line">    <span class="keyword">byte</span>[] bs = <span class="keyword">new</span> <span class="keyword">byte</span>[byteResults.size()];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; bs.length; i++) &#123;</span><br><span class="line">        bs[i] = byteResults.get(i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> String(bs);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="赫夫曼加密文件"><a href="#赫夫曼加密文件" class="headerlink" title="赫夫曼加密文件"></a><strong>赫夫曼加密文件</strong></h2><p>思路：用IO流的方式转为字节，传入编码方法，得到新的字节及编码集，写入对象流中。解压同理，利用对象流读取字节和编码集后，传入解码方法得到对应的字节数据</p>
+<p>可以去git地址看源码</p>
+<h2 id="顺序存储二叉树"><a href="#顺序存储二叉树" class="headerlink" title="顺序存储二叉树"></a><strong>顺序存储二叉树</strong></h2><p><strong>作用是堆排序的时候会用到</strong></p>
+<p>用一组连续的存储单元存放二叉树中的结点数组转二叉树</p>
+<p>顺序存储二叉树的特点为</p>
+<ol>
+<li>顺序二叉树通常只考虑完全二叉树</li>
+<li>第n个元素的左子节点为2*n+1</li>
+<li>第n个元素的右子节点为2*n+2</li>
+<li>第n个元素的父节点为（n-1）/2</li>
+<li>其中n表示二叉树中第几个元素，从0开始</li>
+</ol>
+<p>有这几个规则后就可以很容易的写出实现代码</p>
+<p>就是用数的遍历方式输出数组中的值，比如前序遍历代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//index为数组下标</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">preOrder</span><span class="params">(<span class="keyword">int</span>[] a, <span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (a == <span class="keyword">null</span> || a.length == <span class="number">0</span>) &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;数组为空，无需遍历&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(a[index]);</span><br><span class="line">    <span class="keyword">if</span> ((<span class="number">2</span>*index + <span class="number">1</span>) &lt; a.length) &#123;</span><br><span class="line">        <span class="comment">//向左遍历</span></span><br><span class="line">        preOrder(a, <span class="number">2</span>*index + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> ((<span class="number">2</span>*index + <span class="number">2</span>) &lt; a.length) &#123;</span><br><span class="line">        <span class="comment">//向右遍历</span></span><br><span class="line">        preOrder(a, <span class="number">2</span>*index + <span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="线索化二叉树"><a href="#线索化二叉树" class="headerlink" title="线索化二叉树"></a><strong>线索化二叉树</strong></h2><p><strong>相关概念</strong></p>
+<p><strong>空指针域</strong>：一些节点的左右子树有的并没有，没有的就叫做空指针域，一个节点可能有0-2个空指针域，空指针域= 节点 + 1也就是n+1</p>
+<p>怎么算出来的（了解）</p>
+<p>因为n个节点有2n个指针 又因为n个节点中有n-1条边（节点之间的线被称之为边，比如两个节点只有一条边，三个有两条边，以此类推） 剩下的空链域就是2n-(n-1)=n+1，即n+1个空指针域（有边的则表示存在指针依赖关系，一个节点最多有两条边，减去有关系的也就是n-1条边，剩下的n+1即为没有指向关系的即为空指针域）</p>
+<p><strong>线索二叉树</strong>它解决了无法直接找到该结点在某种遍历序列中的前趋和后继结点的问题，出现了二叉链表找左、右孩子困难的问题，线索二叉树又分为前序线索化，中序线索化和后序线索化，分别用不同的逻辑去实现。</p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic4.zhimg.com/v2-3698162aaa8422fe7ccd74087a9d2c7f_b.png" alt="img"></p>
+<h2 id="二叉排序树"><a href="#二叉排序树" class="headerlink" title="二叉排序树"></a><strong>二叉排序树</strong></h2><p>概念，任何一个非叶子结点，其左子结点都比其小，右子结点都比其大</p>
+<p>现在给定一个数组，将其中的值构建为一颗二叉排序树</p>
+<p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Node <span class="title">buildTree</span><span class="params">(<span class="keyword">int</span>[] a)</span> </span>&#123;</span><br><span class="line">     Node node = <span class="keyword">new</span> Node(a[<span class="number">0</span>]);</span><br><span class="line">     <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i&lt; a.length; i++) &#123;</span><br><span class="line">         <span class="keyword">int</span> temp = a[i];</span><br><span class="line">         findNullPoint(temp, node);</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">return</span> node;</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//找到空结点</span></span><br><span class="line"> <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">findNullPoint</span><span class="params">(<span class="keyword">int</span> a, Node node)</span> </span>&#123;</span><br><span class="line">     <span class="keyword">if</span> (a &lt;= node.value) &#123;</span><br><span class="line">         <span class="keyword">if</span> (node.leftNode == <span class="keyword">null</span>) &#123;</span><br><span class="line">             node.leftNode = <span class="keyword">new</span> Node(a);</span><br><span class="line">             <span class="keyword">return</span>;</span><br><span class="line">         &#125;</span><br><span class="line">         findNullPoint(a, node.leftNode);</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">if</span> (a &gt; node.value) &#123;</span><br><span class="line">         <span class="keyword">if</span> (node.rightNode == <span class="keyword">null</span>) &#123;</span><br><span class="line">             node.rightNode = <span class="keyword">new</span> Node(a);</span><br><span class="line">             <span class="keyword">return</span>;</span><br><span class="line">         &#125;</span><br><span class="line">         findNullPoint(a, node.rightNode);</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="删除结点"><a href="#删除结点" class="headerlink" title="删除结点"></a><strong>删除结点</strong></h3><p>考虑三种情况</p>
+<ul>
+<li>删除节点没有子节点</li>
+<li>删除节点只有一个子节点</li>
+<li>删除节点有两个子节点</li>
+</ul>
+<p><strong>处理方式</strong></p>
+<ul>
+<li>直接删除（没有子节点）</li>
+<li>将删除节点的父节点指向其子节点（只有一个子节点）</li>
+<li>如果删除节点是父节点的左子节点，则替换为删除节点的最右子树（一直向右遍历）</li>
+<li>如果删除删除节点为父节点的右子节点则将删除位置替换为删除节点的最左子树</li>
+</ul>
+<p><strong>难点</strong></p>
+<p>1、当删除结点有两个子节点的时候应该如何处理</p>
+<p>将该节点下的所有结点的值存入数组中，然后重新构建树节点，放入父节点下（我当时的做法，会比较消耗性能，所以稳妥的做法是上面提到的解决方法，也就是第二种方法）</p>
+<p>第二种方法为找到待删除结点的右子树中最小的结点N，然后取出，new一个结点使指等于结点N，左子树指向待删除的左子树，右子树指向待删除的右子树，当然取出结点如果有右子树，那么将其父节点与其链接，如图所示</p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic1.zhimg.com/v2-d38e85f2eeaf91324149b0b80020b55c_b.png" alt="img"></p>
+<p>来源于《算法第四版》</p>
+<p><strong>代码实现</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//删除结点,需要考虑叶子结点，有一个子节点，有两个子节点</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">(Node node, Node deleteNode)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (deleteNode.value == node.value) &#123;</span><br><span class="line">        <span class="comment">//说明删除的为根节点，直接返回</span></span><br><span class="line">        System.out.println(<span class="string">&quot;不能删除根节点！&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (deleteNode.value &lt; node.value) &#123;</span><br><span class="line">        <span class="keyword">if</span> (node.leftNode == <span class="keyword">null</span>) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;未找到需要删除的结点&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (node.leftNode.value == deleteNode.value) &#123;</span><br><span class="line">            <span class="comment">//相等的就判断结点类型</span></span><br><span class="line">            <span class="keyword">if</span> (node.leftNode.leftNode == <span class="keyword">null</span> &amp;&amp; node.leftNode.rightNode == <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="comment">//说明为叶子结点,直接将其置为空</span></span><br><span class="line">                node.leftNode = <span class="keyword">null</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span>(node.leftNode.leftNode != <span class="keyword">null</span> &amp;&amp; node.leftNode.rightNode != <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="comment">//说明有两个子节点</span></span><br><span class="line">                buildSort(node.leftNode);</span><br><span class="line">                list.remove(Integer.valueOf(node.leftNode.value));</span><br><span class="line">                <span class="keyword">int</span>[] temp = <span class="keyword">new</span> <span class="keyword">int</span>[list.size()];</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; list.size(); i++) &#123;</span><br><span class="line">                    temp[i] = list.get(i);</span><br><span class="line">                &#125;</span><br><span class="line">                Node tempNode = buildTree(temp);</span><br><span class="line">                node.leftNode = tempNode;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (node.leftNode.leftNode != <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="comment">//只有一个左子节点，将其替换</span></span><br><span class="line">                node.leftNode = node.leftNode.leftNode;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">//只有一个右子结点，将其替换</span></span><br><span class="line">                node.leftNode = node.leftNode.rightNode;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        delete(node.leftNode, deleteNode);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (deleteNode.value &gt; node.value) &#123;</span><br><span class="line">        <span class="keyword">if</span> (node.rightNode == <span class="keyword">null</span>) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;未找到需要删除的结点&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (node.rightNode.value == deleteNode.value) &#123;</span><br><span class="line">            <span class="comment">//相等的就判断结点类型</span></span><br><span class="line">            <span class="keyword">if</span> (node.rightNode.leftNode == <span class="keyword">null</span> &amp;&amp; node.rightNode.rightNode == <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="comment">//说明为叶子结点,直接将其置为空</span></span><br><span class="line">                node.rightNode = <span class="keyword">null</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span>(node.rightNode.leftNode != <span class="keyword">null</span> &amp;&amp; node.rightNode.rightNode != <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="comment">//说明有两个子节点</span></span><br><span class="line">                buildSort(node.rightNode);</span><br><span class="line">                list.remove(Integer.valueOf(node.rightNode.value));</span><br><span class="line">                <span class="keyword">int</span>[] temp = <span class="keyword">new</span> <span class="keyword">int</span>[list.size()];</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; list.size(); i++) &#123;</span><br><span class="line">                    temp[i] = list.get(i);</span><br><span class="line">                &#125;</span><br><span class="line">                Node tempNode = buildTree(temp);</span><br><span class="line">                node.rightNode = tempNode;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (node.rightNode.leftNode != <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="comment">//只有一个左子节点，将其替换</span></span><br><span class="line">                node.rightNode = node.rightNode.leftNode;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">//只有一个右子结点，将其替换</span></span><br><span class="line">                node.rightNode = node.rightNode.rightNode;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        delete(node.rightNode, deleteNode);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">buildSort</span><span class="params">(Node node)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//首先找到最左节点</span></span><br><span class="line">    <span class="keyword">if</span> (node.getLeftNode()!=<span class="keyword">null</span>) &#123;</span><br><span class="line">        buildSort(node.getLeftNode());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//其次输出当前节点,list为全局静态变量</span></span><br><span class="line">    list.add(node.getValue());</span><br><span class="line">    <span class="comment">//最后向右进行遍历</span></span><br><span class="line">    <span class="keyword">if</span> (node.getRightNode()!=<span class="keyword">null</span>) &#123;</span><br><span class="line">        buildSort(node.getRightNode());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="平衡二叉树（AVL）"><a href="#平衡二叉树（AVL）" class="headerlink" title="平衡二叉树（AVL）"></a><strong>平衡二叉树（AVL）</strong></h2><p>二叉树可能会存在的问题（复杂度会出现O（N）的情况）</p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic1.zhimg.com/v2-d801d7dbdd76a77d1a3858ab15f54928_b.png" alt="img"></p>
+<p>这样的构造如同一个链表</p>
+<p>更像一个单链表，查询速度明显降低</p>
+<p><strong>解决方案：平衡二叉树（AVL）</strong></p>
+<p>小科普：为什么叫AVL？（了解）</p>
+<p>由前苏联的数学家 <strong>A</strong>delse-<strong>V</strong>elskil 和 <strong>L</strong>andis 在 1962 年提出的高度平衡的二叉树，根据科学家的英文名也称为 AVL 树。我还纳闷了，怎么平衡二叉树缩写能没有B</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//构建一颗平衡二叉树</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Node <span class="title">buildBalanceTree</span><span class="params">(<span class="keyword">int</span>[] a)</span> </span>&#123;</span><br><span class="line">    Node node = <span class="keyword">new</span> Node(a[<span class="number">0</span>]);</span><br><span class="line">    <span class="keyword">int</span> status;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; a.length; i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> temp = a[i];</span><br><span class="line">        Node.findNullPoint(temp, node);</span><br><span class="line">        <span class="comment">//对不满足平衡二叉树的条件进行旋转</span></span><br><span class="line">        turn(node);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> node;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a><strong>特点</strong></h3><p><strong>左右两个子树高度差绝对值不能超过1</strong>，并且左右两颗子树都是一颗平衡二叉树</p>
+<p>平衡二叉树实现的方式有：红黑树，AVL（算法），替罪羊树，Treap，伸展树等。</p>
+<p>相关概念：左旋，右旋，双旋</p>
+<p><strong>AVL最对进行两次旋转就可以达到平衡</strong></p>
+<p>右子树高度高，进行左旋转</p>
+<p>相反，左子树高度好，进行右旋转</p>
+<p><strong>旋转的目的：降低树的高度（不是为了好看）</strong></p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic3.zhimg.com/v2-1132908c097827b958d0c3368c32bf2a_b.png" alt="img"></p>
+<p>假如此时的一颗树状况如上，右子树高，则进行左旋操作，分为6步</p>
+<p>1、new一个结点，值为当前结点（默认为根节点）</p>
+<p>2、将新节点的左子树指向当前结点的左子节点</p>
+<p>3、将新结点的右子节点指向当前结点的右子节点的左子节点</p>
+<p>4、将当前结点的值变为右子树结点的值</p>
+<p>5、将当前结点的左子树指向为新节点</p>
+<p>6、将当前结点的右子树指向当前结点的右子节点的右子节点</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 进行左旋</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> node</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">turnLeft</span><span class="params">(Node node)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//1、创建新节点，值与当前结点相同</span></span><br><span class="line">    Node temp = <span class="keyword">new</span> Node(node.value);</span><br><span class="line">    <span class="comment">//2、将新节点左子树指向当前结点的左子树</span></span><br><span class="line">    temp.leftNode = node.leftNode;</span><br><span class="line">    <span class="comment">//3、将新节点的右子树指向当前结点的右子树的左子树</span></span><br><span class="line">    temp.rightNode = node.rightNode.leftNode;</span><br><span class="line">    <span class="comment">//4、将当前结点的值变为当前结点的右子树结点的值</span></span><br><span class="line">    node.value = node.rightNode.value;</span><br><span class="line">    <span class="comment">//5、将当前结点的左子树指向新节点</span></span><br><span class="line">    node.leftNode = temp;</span><br><span class="line">    <span class="comment">//6、将当前结点的右子树指向当前结点右子树的右子树</span></span><br><span class="line">    node.rightNode = node.rightNode.rightNode;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>右旋反过来就行</p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic3.zhimg.com/v2-4dbbbf9215593fdebd44609b86cd3a6a_b.png" alt="img"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 进行右旋</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> node</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">turnRight</span><span class="params">(Node node)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//1、创建新节点，值与当前结点相同</span></span><br><span class="line">    Node temp = <span class="keyword">new</span> Node(node.value);</span><br><span class="line">    <span class="comment">//2、将新节点右子树指向当前结点的右子树</span></span><br><span class="line">    temp.rightNode = node.rightNode;</span><br><span class="line">    <span class="comment">//3、将新节点的左子树指向当前结点的左子树的右子树</span></span><br><span class="line">    temp.leftNode = node.leftNode.rightNode;</span><br><span class="line">    <span class="comment">//4、将当前结点的值变为当前结点的左子树结点的值</span></span><br><span class="line">    node.value = node.leftNode.value;</span><br><span class="line">    <span class="comment">//5、将当前结点的右子树指向新节点</span></span><br><span class="line">    node.rightNode = temp;</span><br><span class="line">    <span class="comment">//6、将当前结点的左子树指向当前结点左子树的左子树</span></span><br><span class="line">    node.leftNode = node.leftNode.leftNode;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>旋转的条件</strong></p>
+<p>高度差超过1</p>
+<p>难点</p>
+<p>1、判断当前树的高度</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getHeight</span><span class="params">(Node node)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Math.max(node.leftNode == <span class="keyword">null</span> ? <span class="number">0</span> : getHeight(node.leftNode), node.rightNode == <span class="keyword">null</span> ? <span class="number">0</span> : getHeight(node.rightNode)) + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>此方法妙在+1，如果没有+1那么在返回上一层的时候将是0，最终结果始终是0，不会发生变化</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 检查该树的状态 0 表示平衡二叉树</span></span><br><span class="line"><span class="comment"> * -1表示左子树高</span></span><br><span class="line"><span class="comment"> * 1表示右子树高</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> node</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">isCheckNode</span><span class="params">(Node node)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> lh = getLeftHeight(node);</span><br><span class="line">    <span class="keyword">int</span> rh = getRightHeight(node);</span><br><span class="line">    <span class="keyword">if</span> (lh &gt; rh &amp;&amp; lh - rh &gt; <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(rh &gt; lh &amp;&amp; rh -lh &gt; <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic4.zhimg.com/v2-0bb8cc39a31c33b5b9b0b153a01f69df_b.png" alt="img"></p>
+<p>上图为特殊情况，一次旋转并不能称为平衡二叉树，所以需要进行双旋。<strong>需要在旋转前在进行一次判断，看是否需要进行双旋</strong>（旋转一次不能满足，所以需要旋转两次）</p>
+<p><strong>难点</strong></p>
+<p>1、左旋前先判断当前结点的右节点的左子树高度是否大于当前结点的左子树高度，如果大于则对当前结点的右子树进行右旋</p>
+<p>2、同样的，右旋前先判断当前结点左子节点的右子树高度是否大于当前结点的右子树高度，如果大于则对当前结点的左子树进行左旋</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//进行旋转</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">turn</span><span class="params">(Node node)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> status = isCheckNode(node);</span><br><span class="line">    <span class="keyword">if</span> (status == -<span class="number">1</span>) &#123;</span><br><span class="line">        <span class="comment">//进行右旋</span></span><br><span class="line">        <span class="keyword">if</span> (getHeight(node.leftNode.rightNode) &gt; getHeight(node.rightNode)) &#123;</span><br><span class="line">            <span class="comment">//进行局部旋转</span></span><br><span class="line">            turnLeft(node.leftNode);</span><br><span class="line">        &#125;</span><br><span class="line">        turnRight(node);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (status == <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="comment">//进行左旋</span></span><br><span class="line">        <span class="keyword">if</span> (isCheckNode(node.rightNode.leftNode) &gt; isCheckNode(node.leftNode)) &#123;</span><br><span class="line">            <span class="comment">//进行局部旋转</span></span><br><span class="line">            turnRight(node.rightNode);</span><br><span class="line">        &#125;</span><br><span class="line">        turnLeft(node);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+
+<h2 id="多叉树"><a href="#多叉树" class="headerlink" title="多叉树"></a><strong>多叉树</strong></h2><p>为什么需要多叉树</p>
+<p>二叉树虽然说效率比较高，但是也会存在问题，结点数 = 2的高度次方 -1 。假如节点数过多的话，在构建二叉树的时候，需要进行多次IO操作，速度会有影响，高度同样也会很高，降低操作速度</p>
+<p><strong>多叉树的优点</strong></p>
+<p>通过重新组织结点，降低树的高度</p>
+<p>几个分叉就表示几结点</p>
+<p>文件系统几数据库系统的设计者利用磁盘预读的原理，将一个结点大小设为等于一个页（页的大小通常为4k），这样每个结点只需要一次IO就可以完全载入。所以B树应用广泛（B+也是）</p>
+<p><strong>2-3树是最简单的B树结构</strong>，特点如下</p>
+<p><strong>那什么是B树？</strong></p>
+<p>B表示balance，也就是平衡树</p>
+<p>1、所有叶子结点都在同一层（也是B树的特点）</p>
+<p>2、有两个子节点的节点叫二节点，二节点要么没有节点，要么有两个子节点</p>
+<p>3、有三个子节点的节点叫二节点，三节点要么没有节点，要么有三个子节点</p>
+<p>4、2-3树是由二节点和三节点构成的树</p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic4.zhimg.com/v2-0c73e9c2398c41099ea0fb7525c6cc9b_b.png" alt="img"></p>
+<p>如图所示</p>
+<p>除了2-3树外，还有2-3-4树，道理是一样的</p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic1.zhimg.com/v2-9392f217484b68715a3a378eda29a7d4_b.png" alt="img"></p>
+<h2 id="B-树和B-树（不详细，后续补充）"><a href="#B-树和B-树（不详细，后续补充）" class="headerlink" title="B+树和B*树（不详细，后续补充）"></a><strong>B+树和B*树（不详细，后续补充）</strong></h2><p>B即balanced，没有B-树 ，其实是B树</p>
+<p>B树的阶：指最多节点的个数，比如2-3树的阶为3</p>
+<p>数据分布在整个树中，即叶子节点和非叶子节点都存放数据</p>
+<p>搜索性能相当于在关键字全集内做一次二分查找</p>
+<p>B+树是B树的变体，所有的数据存于叶子节点中，也叫做稠密索引，且列表中的关键字恰好是有序的，不可能在非叶子节点命中，非叶子节点中的叫索引不是数据，非叶子节点的数据也叫做稀疏索引，所以说更加适合文件系统，所以B树与B+树各自都有用途，取决于应用场景</p>
+<p>这个思想是怎么来的，假设给定一个单链表有27条数据，则可以分为3 * 9 层</p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic3.zhimg.com/v2-858cfce3ee279d6d46a2b2b01be7ba9a_b.png" alt="img"></p>
+<p>B*树是B+树的变体，在B+树的非根和非叶子节点在增加指向兄弟的指针</p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic2.zhimg.com/v2-d29abdae7a015cefa5ecb565b0924ae9_b.png" alt="img"></p>
+<h2 id="红黑树（过于复杂，后续补充代码）"><a href="#红黑树（过于复杂，后续补充代码）" class="headerlink" title="红黑树（过于复杂，后续补充代码）"></a><strong>红黑树（过于复杂，后续补充代码）</strong></h2><p><strong>前置条件</strong>：二叉排序树（BST），平衡二叉树（AVL）</p>
+<p>跟AVL类似，都是平衡二叉树，不同的是AVL是以左右子树的高度差不超过1做限制，所以是全局变动，数据量变大之后会出现性能问题。而红黑树的出现解决了这个问题，它采用局部变动的方式达到一种自平衡，靠的就是<strong>旋转</strong>跟<strong>变色</strong>，旋转操作前面也提到了，变色就是红变黑，黑变红。<strong>难的是什么时候旋转？什么时候变色？</strong>由于它是一种局部自平衡，所以并不是一颗完美的平衡二叉查找树，但左右子树的黑节点层数是相等的，所以我们又称这种平衡叫做<strong>黑色完美平衡</strong></p>
+<p>跟AVL树一样都需要一个规则来进行判断，不满足的话则进行平衡操作</p>
+<p>红黑树有5点规则需要遵守，也可以说红黑树的性质</p>
+<p>1、结点不是红的就是黑的。</p>
+<p>2、根节点是黑色</p>
+<p>3、每个叶子结点都是黑的（指null结点）</p>
+<p>4、每个红节点的两个子节点都是黑的，不能出现连续的两个红色结点</p>
+<p>5、从任意结点到叶子结点都包含相同数目的黑色结点</p>
+<h3 id="插入"><a href="#插入" class="headerlink" title="插入"></a><strong>插入</strong></h3><p>插入的时候还是按照二叉排序树的规则去插，逐一比较插入，插入后不满足条件在进行平衡。插入结点为红节点</p>
+<p>分场景讨论</p>
+<p><strong>场景1：插入时该树没有结点</strong></p>
+<p>将红节点变色</p>
+<p><strong>场景2：插入该值已存在</strong></p>
+<p>直接找到该值然后重新赋值</p>
+<p><strong>场景3：插入的时候父节点为黑色</strong></p>
+<p>满足红黑树的性质直接插入即可</p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic2.zhimg.com/v2-c642394b034f7dafddc44e2f0f40e521_b.png" alt="img"></p>
+<p><strong>场景4：插入的时候父节点为红色</strong></p>
+<p>不满足性质4，也可以得出插入结点一定有祖父结点（父节点的父节点）(根据性质2)</p>
+<p>在分情况讨论</p>
+<p>4.1：叔叔结点为红色</p>
+<p>当前结点情况为黑红红，最简单的处理方式为红黑红，然后在左后续处理（需要注意的是叔叔也需要变为黑色）</p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic2.zhimg.com/v2-ea2b0f9b42916263e437faa734e9aa65_b.png" alt="img"></p>
+<p>如果此时pp结点的父节点为黑色，则无需做任何处理</p>
+<p>如果pp结点父节点为红色，则违反性质4，需要设置pp结点为当前结点，继续做平衡处理</p>
+<p><strong>4.2：叔叔结点不存在或者为黑色，并且父节点为左子节点</strong></p>
+<p>首先来说，叔叔不可能为黑节点，否则违反性质5</p>
+<p><strong>4.2.1：插入结点为P的左子节点</strong></p>
+<p>怎么处理：首先变色：父节点变为黑色，祖父为红，然后进行右旋</p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic3.zhimg.com/v2-7cfb97601107f63110f6e86a0f734f3a_b.png" alt="img"></p>
+<p><strong>4.2.2：插入结点为P的右子节点</strong></p>
+<p>将p左旋（变为上面的情况），然后变色，最后将PP右旋</p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic1.zhimg.com/v2-466816fee2df23c4f70d0e5b68efc2f8_b.png" alt="img"></p>
+<p><strong>4.3：叔叔结点不存在或者为黑色，并且父节点为右子节点</strong></p>
+<p><strong>4.3.1：插入为左子节点</strong></p>
+<p><strong>4.3.2：插入为右子节点</strong></p>
+<p>情况同上，反过来就行</p>
+<p>删除过于复杂，捋顺了再来补充</p>
+<p>以上图片大多来源于网络，侵删</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">柠檬大师</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://leidl.top/post/7b216a3b.html">https://leidl.top/post/7b216a3b.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://leidl.top" target="_blank">柠檬大师的空间站</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a></div><div class="post_share"><div class="social-share" data-image="https://image.leidl.top/img/20210808184527.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/1f4ac2fb.html"><img class="prev-cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://image.leidl.top/img/20210808184527.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">栈</div></div></a></div><div class="next-post pull-right"><a href="/post/b6c47025.html"><img class="next-cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://image.leidl.top/img/20210808184527.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">队列</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E6%A0%91%E8%BF%99%E7%A7%8D%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-number">1.</span> <span class="toc-text">为什么需要树这种数据结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%91%E7%9A%84%E5%B8%B8%E7%94%A8%E6%9C%AF%E8%AF%AD"><span class="toc-number">2.</span> <span class="toc-text">树的常用术语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%91%E7%BB%93%E6%9E%84Java%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.</span> <span class="toc-text">树结构Java代码实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E4%B8%AD%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86"><span class="toc-number">4.</span> <span class="toc-text">前中后序遍历</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B5%AB%E5%A4%AB%E6%9B%BC%E6%A0%91%EF%BC%88wpl%E6%9C%80%E5%B0%8F%E7%9A%84%E6%A0%91%EF%BC%89"><span class="toc-number">5.</span> <span class="toc-text">赫夫曼树（wpl最小的树）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B5%AB%E5%A4%AB%E6%9B%BC%E7%BC%96%E7%A0%81"><span class="toc-number">6.</span> <span class="toc-text">赫夫曼编码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%84%8F%E4%B9%89"><span class="toc-number">6.1.</span> <span class="toc-text">意义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4"><span class="toc-number">6.2.</span> <span class="toc-text">步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">6.3.</span> <span class="toc-text">代码实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B5%AB%E5%A4%AB%E6%9B%BC%E8%A7%A3%E7%A0%81"><span class="toc-number">7.</span> <span class="toc-text">赫夫曼解码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-1"><span class="toc-number">7.1.</span> <span class="toc-text">步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0-1"><span class="toc-number">7.2.</span> <span class="toc-text">代码实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B5%AB%E5%A4%AB%E6%9B%BC%E5%8A%A0%E5%AF%86%E6%96%87%E4%BB%B6"><span class="toc-number">8.</span> <span class="toc-text">赫夫曼加密文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%BA%E5%BA%8F%E5%AD%98%E5%82%A8%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="toc-number">9.</span> <span class="toc-text">顺序存储二叉树</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E7%B4%A2%E5%8C%96%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="toc-number">10.</span> <span class="toc-text">线索化二叉树</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E5%8F%89%E6%8E%92%E5%BA%8F%E6%A0%91"><span class="toc-number">11.</span> <span class="toc-text">二叉排序树</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E7%BB%93%E7%82%B9"><span class="toc-number">11.1.</span> <span class="toc-text">删除结点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91%EF%BC%88AVL%EF%BC%89"><span class="toc-number">12.</span> <span class="toc-text">平衡二叉树（AVL）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E7%82%B9"><span class="toc-number">12.1.</span> <span class="toc-text">特点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E5%8F%89%E6%A0%91"><span class="toc-number">13.</span> <span class="toc-text">多叉树</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#B-%E6%A0%91%E5%92%8CB-%E6%A0%91%EF%BC%88%E4%B8%8D%E8%AF%A6%E7%BB%86%EF%BC%8C%E5%90%8E%E7%BB%AD%E8%A1%A5%E5%85%85%EF%BC%89"><span class="toc-number">14.</span> <span class="toc-text">B+树和B*树（不详细，后续补充）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%A2%E9%BB%91%E6%A0%91%EF%BC%88%E8%BF%87%E4%BA%8E%E5%A4%8D%E6%9D%82%EF%BC%8C%E5%90%8E%E7%BB%AD%E8%A1%A5%E5%85%85%E4%BB%A3%E7%A0%81%EF%BC%89"><span class="toc-number">15.</span> <span class="toc-text">红黑树（过于复杂，后续补充代码）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%92%E5%85%A5"><span class="toc-number">15.1.</span> <span class="toc-text">插入</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2023 By 柠檬大师</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1280244891'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1280244891%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));</script></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><script async="async">var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())
+setTimeout(function(){preloader.endLoading();}, 5000);</script><div class="js-pjax"><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://my-vercel-ivory.vercel.app/',
+      region: ''
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'https://my-vercel-ivory.vercel.app/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script defer type="text/javascript" src="/js/custom.js"></script><script async src="//at.alicdn.com/t/font_2715980_5630evjgv57.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script data-pjax>function history_calendar_injector_config(){
+                var parent_div_git = document.getElementsByClassName('sticky_layout')[0];
+                var item_html = '<div class="card-widget card-history"><div class="card-content"><div class="item-headline"><i class="fas fa-clock fa-spin"></i><span>历史今日</span></div><div id="history-baidu" style="height: 100px;overflow: hidden"><div class="history_swiper-container" id="history-container" style="width: 100%;height: 100%"><div class="swiper-wrapper" id="history_container_wrapper" style="height:20px"></div></div></div></div>';
+                console.log('已挂载history_calendar')
+                // parent_div_git.innerHTML=item_html+parent_div_git.innerHTML // 无报错，但不影响使用(支持pjax跳转)
+                parent_div_git.insertAdjacentHTML("afterbegin",item_html) // 有报错，但不影响使用(支持pjax跳转)
+            }if( document.getElementsByClassName('sticky_layout')[0] && (location.pathname ==='/'|| '/' ==='all')){
+
+            history_calendar_injector_config()
+        } </script><script data-pjax  src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script><script data-pjax src="https://cdn.jsdelivr.net/gh/Zfour/Butterfly-card-history/baiduhistory/js/main.js"></script><script data-pjax>
+  function butterfly_footer_beautify_injector_config(){
+    var parent_div_git = document.getElementById('footer-wrap');
+    var item_html = '<div id="ghbdages" style="overflow:hidden;max-height:180px;height:auto;text-align:center;margin-top:10px"><div class="swiper-wrapper"><div class="swiper-slide"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" title="博客框架为Hexo_v5.4.0"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" title="主题版本Butterfly_v3.8.3"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://www.upyun.com/?utm_source=lianmeng&amp;utm_medium=referral" style="margin-inline:5px" title="本站使用又拍云提供CDN加速"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://img.shields.io/badge/CDN-%E5%8F%88%E6%8B%8D%E4%BA%91-00b6ff?style=flat&amp;logo=data:image/png;base64,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" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" title="本站项目由Gtihub托管"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a><a class="github-badge" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" style="margin-inline:5px" title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&amp;logo=Claris" alt=""/></a><a class="github-badge" target="_blank" href="https://beian.miit.gov.cn/" style="margin-inline:5px" title="本站备案信息"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://img.shields.io/badge/%E4%BA%ACICP%E5%A4%87-2021025614%E5%8F%B7--1-e1d492?style=flat&amp;logo=data:image/png;base64,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" alt=""/></a></div></div></div><style>a.github-badge:hover:before {display:none}</style>';
+    console.log('已挂载butterfly_footer_beautify')
+    parent_div_git.insertAdjacentHTML("beforeend",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_footer_beautify_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_footer_beautify_injector_config();
+  }
+  </script><script defer src="https://cdn.jsdelivr.net/npm/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://cdn.jsdelivr.net/npm/hexo-butterfly-footer-beautify/lib/swiperbdage_init_js.min.js"></script><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>
